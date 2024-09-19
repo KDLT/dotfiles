@@ -1,12 +1,14 @@
+{ lib, ... }:
 {
   programs.kitty = {
     enable = true;
-    font = {
-      size = "18";
-    };
+    # font = {
+    #   size = 18;
+    # };
     # theme = "Space Grey Eighties";
     settings = {
-      background_opacity = "0.89";
+      # lib.mkForce is required to set opacity
+      background_opacity = lib.mkForce "0.89";
       window_padding_width = "12";
       enabled_layouts = "tall, splits, fat";
       inactive_border_color = "#0f0d0d";

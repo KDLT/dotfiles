@@ -17,7 +17,7 @@
           "<Space>" = "<NOP>"; # to not interfere with space being the leader key
           "<Esc>" = ":noh<CR>"; # clear highlights
           "L" = "$"; # go to last character of line
-          "H" = "0"; # go to first character of line
+          "H" = "^"; # go to first non-empty character of line
 
           "<C-c>" = ":b#<CR>"; # back and forth between two most recent files
           "<C-x>" = ":close<CR>"; # close window via Ctrl+x, this cannot close the last window

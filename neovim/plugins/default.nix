@@ -7,6 +7,7 @@
     ./harpoon.nix
     ./treesitter.nix
     ./comment.nix
+    ./which-key.nix
   ];
 
   programs.nixvim = {
