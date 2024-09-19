@@ -3,6 +3,8 @@
 {
   imports = [
     ./neovim/default.nix
+    ./kitty.nix
+    ./stylix.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -64,27 +66,16 @@
     # '')
   ];
 
-  stylix = {
-    enable = true;
-    autoEnable = true;
-    polarity = "dark";
-    image = /home/kba/Pictures/4k-black.jpg;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/vesper.yaml";
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/synth-midnight-dark.yaml";
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine-moon.yaml";
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-  };
-
-  programs.kitty = {
-    enable = true;
-    settings = {
-      background_opacity = lib.mkForce "0.87";
-
-      window_padding_width = "12";
-      inactive_border_color = "#0f0d0d";
-      active_border_color = "#ffebeb";
-    };
-  };
+  # programs.kitty = {
+  #   enable = true;
+  #   settings = {
+  #     background_opacity = lib.mkForce "0.87";
+  #
+  #     window_padding_width = "12";
+  #     inactive_border_color = "#0f0d0d";
+  #     active_border_color = "#ffebeb";
+  #   };
+  # };
 
   programs.nixvim = {
     enable = true;

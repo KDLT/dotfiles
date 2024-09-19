@@ -10,6 +10,7 @@
         "<leader>b" = "buffers";
         "<leader>fh" = "help_tags";
         "<leader>fd" = "diagnostics";
+        "<leader>fk" = "keymaps";
 
         # my Ctrl based bindings
         "<C-p>" = "git_files";
