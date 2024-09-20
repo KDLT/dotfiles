@@ -8,8 +8,8 @@
         silent = true;
         diagnostic = {
           # navigate diagnostics
-          "<leader>[" = "goto_prev";
-          "<leader>]" = "goto_next";
+          # "<leader>[" = "goto_prev";
+          # "<leader>]" = "goto_next";
         };
         lspBuf = {
           gd = "definition";

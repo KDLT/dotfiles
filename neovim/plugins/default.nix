@@ -8,6 +8,8 @@
     ./treesitter.nix
     ./comment.nix
     ./which-key.nix
+    ./oil.nix
+    ./undotree.nix
   ];
 
   programs.nixvim = {
@@ -18,8 +20,6 @@
         enable = true;
         userDefaultOptions.names = false;
       };
-
-      oil.enable = true;
 
       # highlights whitespaces and trim them upon save
       trim = {

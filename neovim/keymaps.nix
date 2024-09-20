@@ -1,40 +1,64 @@
 { config, lib, ... }:
 {
+  # keymaps.nix
   programs.nixvim = {
     globals = {
       mapleader = " ";
       maplocalleader = " ";
     };
 
+    # keymaps is list of submodules [ {} {} {} ... ]
+    # keymaps = [
+    #   {
+    #     action = "<cmd>make<CR>";
+    #     key = "<C-m>";
+    #     options = {
+    #       silent = true;
+    #       desc = "";
+    #     };
+    #   }
+    # ];
+    #### Pending: add descriptions inside the mapAttrsToList
     keymaps = let
       # mappings on normal mode
       normal =
-        lib.mapAttrsToList (key: action: {
+        # lib.mapAttrsToList (key: action: {
+        # keyset = { key = "inputkey"; action = "desiredoutput"; "desc" = "descriptive text" };
+        lib.mapAttrsToList ( key: keyAttrs: {
           mode = "n";
-          inherit action key;
+          options = {
+            desc = keyAttrs.desc;
+          };
+          # inherit action key; # stopped using this because i want to add description
+          key = key;
+          action = keyAttrs.action;
         })
         {
-          "<Space>" = "<NOP>"; # to not interfere with space being the leader key
-          "<Esc>" = ":noh<CR>"; # clear highlights
-          "L" = "$"; # go to last character of line
-          "H" = "^"; # go to first non-empty character of line
+          "<Space>" = { action = "<NOP>"; desc = "Global Leader Key"; };
+          "<Esc>" = { action = ":noh<CR>"; desc = "clear highlights"; };
+          "L" = { action = "$"; desc = "go to last character of line"; };
+          "H" = { action = "^"; desc = "go to first non-empty character of line"; };
 
-          "<C-c>" = ":b#<CR>"; # back and forth between two most recent files
-          "<C-x>" = ":close<CR>"; # close window via Ctrl+x, this cannot close the last window
+          "<leader><F7>" = { action = "gg=G"; desc = "Auto-indent Current Buffer"; };
 
-          "<leader>s" = ":w<CR>"; # save buffer via Space s
-          "<C-s>" = ":w<CR>"; # save buffer via Ctrl+s
+          "<C-c>" = { action = ":b#<CR>"; desc = "back and forth between two most recent buffers"; };
+          "<C-x>" = { action = ":close<CR>"; desc = "close window via Ctrl+x, this cannot close the last window"; };
 
-          "<leader>h" = "<C-w>h"; # navigate to left window
-          "<leader>j" = "<C-w>j"; # navigate to bottom window
-          "<leader>k" = "<C-w>k"; # navigate to top window
-          "<leader>l" = "<C-w>l"; # navigate to right window
+          "<leader>s" = { action = ":w<CR>"; desc = "Save Buffer"; };
+          "<C-s>" = { action = ":w<CR>"; desc = "Save Buffer"; };
 
-          "<C-Up>" = ":resize +2<CR>"; # grow horizontal current window
-          "<C-Down>" = ":resize -2<CR>"; # shrink horizontal current window
-          "<C-Left>" = ":vertical resize -2<CR>"; # shrink vertical current window
-          "<C-Right>" = ":vertical resize +2<CR>"; # grow vertical current window
+          "<leader>h" = { action = "<C-w>h"; desc = "Navigate to Left window"; };
+          "<leader>j" = { action = "<C-w>j"; desc = "Navigate to Bottom window"; };
+          "<leader>k" = { action = "<C-w>k"; desc = "Navigate to Top window"; };
+          "<leader>l" = { action = "<C-w>l"; desc = "Navigate to Right window"; };
+
+          "<C-Up>" = { action = ":resize +2<CR>"; desc = "grow horizontal current window"; };
+          "<C-Down>" = { action = ":resize -2<CR>"; desc = "shrink horizontal current window"; };
+          "<C-Left>" = { action = ":vertical resize -2<CR>"; desc = "shrink vertical current window"; };
+          "<C-Right>" = { action = ":vertical resize +2<CR>"; desc = "grow vertical current window"; };
         };
+
+      # mappings on visual mode
       visual =
         lib.mapAttrsToList (key: action: {
           mode = "v";

@@ -3,7 +3,7 @@
 {
   imports = [
     ./stylix.nix
-    ./neovim/default.nix
+    ./neovim
     ./kitty.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
@@ -66,38 +66,6 @@
     # '')
   ];
 
-  # programs.kitty = {
-  #   enable = true;
-  #   settings = {
-  #     background_opacity = lib.mkForce "0.87";
-  #
-  #     window_padding_width = "12";
-  #     inactive_border_color = "#0f0d0d";
-  #     active_border_color = "#ffebeb";
-  #   };
-  # };
-
-  programs.nixvim = {
-    enable = true;
-  };
-  # programs.neovim = {
-  #   enable = false;
-  #   viAlias = true;
-  #   vimAlias = true;
-  #   plugins = with pkgs.vimPlugins; [
-  #     telescope-nvim
-  #     nvim-treesitter.withAllGrammars
-  #     # nvim-tree-lua
-  #     # lazy-nvim
-  #     # lazy-lsp-nvim
-  #     {
-  #       plugin = vim-startify;
-  #       config = "let g:startify_change_to_vcs_root = 0";
-  #     }
-  #   ];
-  #   extraLuaConfig = lib.fileContents ./init.lua;
-  # };
-  #
   programs.zoxide.enable = true;
 
   programs.zsh = {

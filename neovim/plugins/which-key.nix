@@ -4,7 +4,7 @@
     settings = {
       delay = 200;
       expand = 1;
-      notify = false;
+      notify = true;
       preset = false;
       replace = {
         desc = [
@@ -16,6 +16,12 @@
         ];
       };
       spec = [
+        { # i don't know why they're called __unkeyed
+          __unkeyed-1 = "<leader>a";
+          # and group is the description in which-key
+          group = "Add Buffer to Harpoon";
+          mode = "n";
+        }
         {
           __unkeyed-1 = "<leader>b";
           group = "Buffers";
@@ -36,17 +42,15 @@
           __unkeyed-1 = [
             {
               __unkeyed-1 = "<leader>f";
-              group = "Normal Visual Group";
+              # group = "Normal Visual Group";
+              group = "Telescope";
             }
             {
               __unkeyed-1 = "<leader>f<tab>";
               group = "Normal Visual Group in Group";
             }
           ];
-          mode = [
-            "n"
-            "v"
-          ];
+          mode = [ "n" "v" ];
         }
         {
           __unkeyed-1 = "<leader>w";
