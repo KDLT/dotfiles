@@ -2,8 +2,10 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
-
+{ config, pkgs, inputs, ... }:
+let
+  hyprlandPkg = inputs.hyprland.packages.${pkgs.system}.hyprland;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -51,16 +53,21 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # stylix = {
-  #   enable = true;
-  #   autoEnable = true;
-  #   base16Scheme = "black-metal-bathory";
-  # };
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-# do not suspend because nvidia
+  # hyprland, hyprlock, & waybar
+  programs = {
+    hyprland = {
+      enable = true;
+      package = hyprlandPkg;
+      xwayland.enable = true;
+    };
+    hyprlock.enable = true;
+    waybar.enable = true;
+  };
+
+  # do not suspend because nvidia
   services.autosuspend.enable = false;
 
   # Enable the GNOME Desktop Environment.
@@ -101,9 +108,9 @@
     description = "Kenneth Balboa Aguirre";
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
-    packages = with pkgs; [
+    # packages = with pkgs; [
     #  thunderbird
-    ];
+    # ];
   };
 
   # Install firefox.

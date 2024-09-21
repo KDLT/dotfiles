@@ -10,6 +10,7 @@
     ./which-key.nix
     ./oil.nix
     ./undotree.nix
+    ./dap.nix
   ];
 
   programs.nixvim = {

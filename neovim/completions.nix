@@ -4,6 +4,12 @@
 
     plugins = {
       luasnip.enable = true;
+      # cmp-nvim-lsp.enable = true;
+      # cmp-buffer.enable = true;
+      # cmp-path.enable = true;
+      # cmp_luasnip.enable = true;
+      # cmp-cmdline.enable = true;
+
       lspkind = {
         enable = true;
         cmp = {
@@ -21,7 +27,6 @@
 
       cmp = {
         enable = true;
-
         settings = {
           snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
           mapping = {
@@ -34,6 +39,8 @@
             "<CR>" = "cmp.mapping.confirm({ select = true })";
           };
 
+          # autoEnableSources = true;
+
           sources = [
             { name = "nvim_lsp"; }
             { name = "path"; }
@@ -45,6 +52,7 @@
             }
             { name = "neorg"; }
           ];
+
         };
       };
     };
