@@ -11,31 +11,20 @@
     };
 
     hyprland = {
-      url = "github:hyrpwm/hyprland";
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     # hyprland-plugins contain:
-    #   borders-plus-plus
-    #   hyprbars
-    #   hyprexpo
-    #   hyprtrails
-    #   hyprwinwrap
+    #   borders-plus-plus, hyprbars, hyprexpo, hyprtrails, hyprwinwrap
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.nixpkgs.follows = "hyprland";
     };
-
     hyprlock = {
       url = "github:hyprwm/hyprlock";
       inputs.nixpkgs.follows = "hyprland";
     };
 
-    # kickstart-nix-nvim = {
-    #   # url = "github:nix-community/kickstart-nix.nvim";
-    #   # url = "github:KDLT/kickstart-nix.nvim";
-    #   url = "/home/kba/code/github/kickstart-nix.nvim";
-    # };
     nixvim = {
       # for unstable channel
       url = "github:nix-community/nixvim";
@@ -57,7 +46,7 @@
       home-manager = inputs.home-manager;
       stylix = inputs.stylix;
       nixvim = inputs.nixvim;
-      hyprland = inputs.hyprland;
+      # hyprland = inputs.hyprland;
     in
       {
 
@@ -79,7 +68,6 @@
           ./home.nix
           nixvim.homeManagerModules.nixvim
           stylix.homeManagerModules.stylix
-          hyprland.homeManagerModules.hyprland
         ];
 
         # Optionally use extraSpecialArgs

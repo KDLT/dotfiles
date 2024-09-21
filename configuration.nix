@@ -4,7 +4,11 @@
 
 { config, pkgs, inputs, ... }:
 let
-  hyprlandPkg = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  hyprFlake = rec {
+    inputFlake = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+    pkg = inputFlake.hyprland;
+    portalPkg = inputFlake.xdg-desktop-portal-hyprland;
+  };
 in
 {
   imports =
@@ -13,7 +17,11 @@ in
       ./nvidia.nix
     ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
 
   nix.nixPath = [
     "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
@@ -60,7 +68,8 @@ in
   programs = {
     hyprland = {
       enable = true;
-      package = hyprlandPkg;
+      package = hyprFlake.pkg;
+      portalPackage = hyprFlake.portalPkg;
       xwayland.enable = true;
     };
     hyprlock.enable = true;
@@ -127,24 +136,23 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    fzf
-    ripgrep
-    gcc
+    # terminalizators
+    neovim ranger kitty zsh
+    # filenavigators
+    fzf ripgrep gcc fd
+    # outsidenegotiators
+    wget git curl
+    # copypastators
     xclip
-    fd
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    ranger
-    git
-    kitty
-    zsh
+    # bling
+    bat eza oh-my-posh fortune cowsay lolcat
+    # fetch
+    disfetch onefetch
   ];
 
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [
-    zsh
-    bash
-    fish
+    zsh bash
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
