@@ -12,7 +12,7 @@
 
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     # hyprland-plugins contain:
     #   borders-plus-plus, hyprbars, hyprexpo, hyprtrails, hyprwinwrap
@@ -24,6 +24,7 @@
       url = "github:hyprwm/hyprlock";
       inputs.nixpkgs.follows = "hyprland";
     };
+    swww.url = "github:LGFae/swww";
 
     nixvim = {
       # for unstable channel
@@ -46,7 +47,6 @@
       home-manager = inputs.home-manager;
       stylix = inputs.stylix;
       nixvim = inputs.nixvim;
-      # hyprland = inputs.hyprland;
     in
       {
 

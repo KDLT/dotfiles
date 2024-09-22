@@ -8,6 +8,10 @@
       "nvidia-persistenced"
     ];
 
+  environment.systemPackages = with pkgs; [
+    egl-wayland
+  ];
+
   environment = {
     variables = {
       LIBVA_DRIVER_NAME = "nvidia";
@@ -31,9 +35,9 @@
   };
 
   ## Enable OpenGL (for stable branch)
-  # hardware.opengl = { enable = true; };
+  hardware.opengl = { enable = true; };
   ## for unstable branch
-  hardware.graphics.enable = true;
+  # hardware.graphics.enable = true;
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];

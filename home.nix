@@ -6,6 +6,7 @@
     ./neovim
     ./kitty.nix
     ./hyprland.nix
+    ./waybar.nix
     ./shell.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
@@ -49,26 +50,18 @@
     fd
   ];
 
-  programs.zoxide.enable = true;
-
-  programs.zsh = {
+  programs.ranger = {
     enable = true;
-    dotDir = ".config/zsh";
-    defaultKeymap = "viins";
-    completionInit = "autoload -Uz compinit";
-    enableCompletion = true;
-    syntaxHighlighting.enable = true;
-    autosuggestion.enable = true;
-    historySubstringSearch.enable = true;
-    history = {
-      path = "$HOME/.config/zsh/histfile";
-      save = 10000;
-      extended = true;
-    };
-    initExtraBeforeCompInit = ''
-      setopt HIST_IGNORE_DUPS SHARE_HISTORY HIST_FCNTL_LOCK EXTENDED_HISTORY EXTENDED_GLOB NOTIFY
-      unsetopt AUTO_CD BEEP NOMATCH
+    extraConfig = ''
+      # set preview_images true
     '';
+    settings = {
+      column_ratios = "1,3,3";
+      scroll_offset = 8;
+      unicode_ellipsis = true;
+      preview_images = true;
+      preview_images_method = "kitty";
+    };
   };
 
   programs.btop = {

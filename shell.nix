@@ -1,12 +1,13 @@
 # shell.nix
 { pkgs, ... }:
 let
-  myAliases = ''
+  myAliases = {
     ll = "eza --icons -lTa -L=1";
     cat = "bat";
     gitfetch = "onefetch";
-    fetch = "disfetch"
-  '';
+    fetch = "disfetch";
+    icat = "kitten icat";
+  };
 in
 {
 

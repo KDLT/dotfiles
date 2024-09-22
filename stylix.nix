@@ -15,7 +15,8 @@ in
     enable = true;
     autoEnable = true;
     polarity = "dark";
-    image = /home/kba/Pictures/4k-black.jpg;
+    # image = /home/kba/Pictures/4k-black.jpg;
+    image = /home/kba/Pictures/aesthetic-wallpapers/images/manga.png;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/vesper.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/synth-midnight-dark.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine-moon.yaml";

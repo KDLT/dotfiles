@@ -15,6 +15,7 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./nvidia.nix
+      # ./hyprland.nix
     ];
 
   nix.settings = {
@@ -25,13 +26,14 @@ in
 
   nix.nixPath = [
     "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-    "nixos-config=/home/kba/configuration.nix"
+    "nixos-config=/home/kba/dotfiles/configuration.nix"
     "/nix/var/nix/profiles/per-user/root/channels"
   ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.extraModprobeConfig = "options nvidia_drm modeset=1 fbdev=1\n";
 
   networking.hostName = "K-Nixtop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -61,27 +63,34 @@ in
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver = {
+    # Enable the X11 windowing system.
+    enable = true;
+    # Enable the GNOME Desktop Environment.
+    # displayManager.gdm.enable = true;
+    # desktopManager.gnome.enable = true;
+  };
+  # Enable SDDM
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
 
-  # hyprland, hyprlock, & waybar
+  # # hyprland, hyprlock, & waybar
   programs = {
+    xwayland.enable = true;
     hyprland = {
       enable = true;
       package = hyprFlake.pkg;
       portalPackage = hyprFlake.portalPkg;
       xwayland.enable = true;
     };
-    hyprlock.enable = true;
+    # hyprlock.enable = true;
     waybar.enable = true;
   };
 
   # do not suspend because nvidia
   services.autosuspend.enable = false;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   # services.xserver = {
@@ -148,6 +157,12 @@ in
     bat eza oh-my-posh fortune cowsay lolcat
     # fetch
     disfetch onefetch
+    # hyprland must haves
+    dunst polkit-kde-agent
+    qt5.qtwayland
+    qt6.qtwayland
+    # desktop background
+    inputs.swww.packages.${pkgs.system}.swww
   ];
 
   users.defaultUserShell = pkgs.zsh;
