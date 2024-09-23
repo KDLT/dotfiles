@@ -71,9 +71,15 @@ in
     # desktopManager.gnome.enable = true;
   };
   # Enable SDDM
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
+  services.displayManager = {
+    sddm = {
+      enable = false;
+      package = pkgs.kdePackages.sddm;
+      wayland.enable = true;
+      settings.Wayland = {
+        sessionDir = "${hyprFlake.pkg}/share/wayland-sessions";
+      };
+    };
   };
 
   # # hyprland, hyprlock, & waybar
@@ -85,8 +91,6 @@ in
       portalPackage = hyprFlake.portalPkg;
       xwayland.enable = true;
     };
-    # hyprlock.enable = true;
-    waybar.enable = true;
   };
 
   # do not suspend because nvidia
@@ -157,12 +161,16 @@ in
     bat eza oh-my-posh fortune cowsay lolcat
     # fetch
     disfetch onefetch
+    # hyprland install
+    hyprFlake.pkg
     # hyprland must haves
-    dunst polkit-kde-agent
-    qt5.qtwayland
-    qt6.qtwayland
-    # desktop background
+    qt5.qtwayland qt6.qtwayland
+    dunst fuzzel # launchers
+    polkit-kde-agent
+    # hyprland desktop background
     inputs.swww.packages.${pkgs.system}.swww
+    # hyprland clip & capture
+    wl-clipboard slurp grim
   ];
 
   users.defaultUserShell = pkgs.zsh;

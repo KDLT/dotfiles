@@ -1,7 +1,5 @@
 { inputs, config, lib, pkgs, ... }:
 let
-  hyprPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-  hyprlandPlugins = inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system};
   # hyprlock = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
   hyprFlake = rec {
     inputFlake = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
@@ -29,28 +27,24 @@ in
   # hyprland home-manager xdg portal
   xdg.portal = {
     enable = true;
-    extraPortals = [
-      # hyprFlake.portalPkg
-      pkgs.xdg-desktop-portal-gtk
-    ];
-    configPackages = [
-      # hyprFlake.portalPkg
-      pkgs.xdg-desktop-portal-gtk
-    ];
+    extraPortals = [ hyprFlake.portalPkg ]; # pkgs.xdg-desktop-portal-gtk
+    configPackages = [ hyprFlake.portalPkg ]; # pkgs.xdg-desktop-portal-gtk
   };
+
+  # programs.waybar = {
+  #   enable = true;
+  # };
 
   wayland.windowManager.hyprland = {
     enable = true;
+    # package = hyprFlake.pkg;
+    # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     xwayland.enable = true;
-    # package = hyprPackage;
     systemd = {
       enable = true;
       enableXdgAutostart = true;
-      extraCommands = [
-        "swww-daemon"
-        "swww img /home/kba/Pictures/aesthetic-wallpapers/images/cute-town.png"
-        "waybar"
-      ];
+      # extraCommands = [ ];
     };
     settings = {
       "$mod" = "SUPER"; # GUI key = pinky
@@ -228,6 +222,39 @@ in
         "$mod, mouse:273, resizewindow"
       ];
 
+      env = [
+        # nvidia hyprland environment variables
+        "LIBVA_DRIVER_NAME,nvidia"
+        "XDG_SESSION_TYPE,wayland"
+        "GBM_BACKEND,nvidia-drm"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "NIXOS_OZONE_WL,1"
+
+        ## these are from dc-tec, dunno what they do
+        # "_JAVA_AWT_WM_NONREPARENTING,1"
+        # "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+        # "QT_QPA_PLATFORM,wayland"
+        # "SDL_VIDEODRIVER,wayland"
+        # "GDK_BACKEND,wayland"
+        # "XDG_SESSION_DESKTOP,Hyprland"
+        # "XDG_CURRENT_DESKTOP,Hyprland"
+      ];
+
+      exec-once = [
+        # "${pkgs.waybar}" # this supposedly proper way doesn't seem to work
+        # "${pkgs.waybar}/bin/waybar" # nevermind, i'm just dumb
+        # "waybar" # while this works
+
+        # calling swww here works but doesn't on xdgautostart
+        "${pkgs.swww}/bin/swww-daemon"
+        "${pkgs.swww}/bin/swww img /home/kba/Pictures/aesthetic-wallpapers/images/minim-helmet.png"
+        "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+
+        # open a kitty and firefox
+        "${pkgs.kitty}/bin/kitty"
+        "${pkgs.firefox}/bin/firefox"
+      ];
+
     };
 
     plugins = [
@@ -249,7 +276,7 @@ in
       main = {
         terminal = "${pkgs.kitty}/bin/kitty";
         layer = "overlay";
-        icon-theme = "Papirus-Dark";
+        # icon-theme = "Papirus-Dark";
         prompt = " ";
         # font = "0xProto Nerd Font";
       };

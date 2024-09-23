@@ -12,14 +12,14 @@
 
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     # hyprland-plugins contain:
     #   borders-plus-plus, hyprbars, hyprexpo, hyprtrails, hyprwinwrap
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.nixpkgs.follows = "hyprland";
-    };
+    # hyprland-plugins = {
+    #   url = "github:hyprwm/hyprland-plugins";
+    #   inputs.nixpkgs.follows = "hyprland";
+    # };
     hyprlock = {
       url = "github:hyprwm/hyprlock";
       inputs.nixpkgs.follows = "hyprland";
@@ -42,7 +42,6 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      lib = nixpkgs.lib;
 
       home-manager = inputs.home-manager;
       stylix = inputs.stylix;
@@ -50,13 +49,15 @@
     in
       {
 
-      nixosConfigurations.K-Nixtop = lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./configuration.nix
-          home-manager.nixosModules.default
-          # stylix.nixosModules.stylix # cannot coexist with the homeManagerModules
-        ];
+      nixosConfigurations = {
+        K-Nixtop = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs;};
+          modules = [
+            ./configuration.nix
+            home-manager.nixosModules.default
+            # stylix.nixosModules.stylix # cannot coexist with the homeManagerModules
+          ];
+        };
       };
 
       homeConfigurations."kba" = home-manager.lib.homeManagerConfiguration {

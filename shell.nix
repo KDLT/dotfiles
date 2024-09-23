@@ -44,6 +44,8 @@ in
       unsetopt AUTO_CD BEEP NOMATCH
     '';
     shellAliases = myAliases;
+    envExtra = ''disfetch'';
+    loginExtra = "hyprland";
   };
 
   programs.bash = { shellAliases = myAliases; };
