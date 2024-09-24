@@ -33,7 +33,15 @@ in
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  # hyprland nvidia requirement: /etc/modprobe.d/nvidia.conf located in nixos.conf
   boot.extraModprobeConfig = "options nvidia_drm modeset=1 fbdev=1\n";
+  # hyprland, nvidia requirement: /etc/mkinitcpio.conf
+  boot.initrd.kernelModules = [
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
 
   networking.hostName = "K-Nixtop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -71,16 +79,16 @@ in
     # desktopManager.gnome.enable = true;
   };
   # Enable SDDM
-  services.displayManager = {
-    sddm = {
-      enable = false;
-      package = pkgs.kdePackages.sddm;
-      wayland.enable = true;
-      settings.Wayland = {
-        sessionDir = "${hyprFlake.pkg}/share/wayland-sessions";
-      };
-    };
-  };
+  # services.displayManager = {
+  #   sddm = {
+  #     enable = false;
+  #     package = pkgs.kdePackages.sddm;
+  #     wayland.enable = true;
+  #     settings.Wayland = {
+  #       sessionDir = "${hyprFlake.pkg}/share/wayland-sessions";
+  #     };
+  #   };
+  # };
 
   # # hyprland, hyprlock, & waybar
   programs = {

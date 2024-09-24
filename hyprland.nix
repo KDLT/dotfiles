@@ -248,11 +248,13 @@ in
         # calling swww here works but doesn't on xdgautostart
         "${pkgs.swww}/bin/swww-daemon"
         "${pkgs.swww}/bin/swww img /home/kba/Pictures/aesthetic-wallpapers/images/minim-helmet.png"
+
         "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
 
         # open a kitty and firefox
         "${pkgs.kitty}/bin/kitty"
         "${pkgs.firefox}/bin/firefox"
+
       ];
 
     };
