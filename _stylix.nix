@@ -1,3 +1,4 @@
+# now defined in modules/graphical/stylix/default.nix
 { pkgs, ... }:
 let
   monospace = "CommitMono";

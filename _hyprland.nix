@@ -8,7 +8,7 @@ let
   };
 in
   {
-  # TODO: Refactor the homeConfiguration to live in nixosConfiguration
+  # TODO-COMPLETE: Refactor the homeConfiguration to live in nixosConfiguration
   # config = {
   #
   #   environment.systemPackages = [

@@ -1,51 +1,50 @@
 { config, pkgs, lib, ... }:
 {
+  # TODO-COMPLETE: transfer nvidia settings that hyprland requires to hyprland/default.nix
 
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "nvidia-x11"
-      "nvidia-settings"
-      "nvidia-persistenced"
-    ];
-
-  environment.systemPackages = with pkgs; [
-    egl-wayland
-  ];
+  # moved to ~/dotfiles/modules/graphical/desktop/hyprland.nix
+  # nixpkgs.config.allowUnfreePredicate = pkg:
+  #   builtins.elem (lib.getName pkg) [
+  #     "nvidia-x11"
+  #     "nvidia-settings"
+  #     "nvidia-persistenced"
+  #   ];
+  # environment.systemPackages = with pkgs; [
+  #   egl-wayland
+  # ];
 
   environment = {
     variables = {
-      # LIBVA_DRIVER_NAME = "nvidia";
-      # XDG_SESSION_TYPE = "wayland";
-      # GBM_BACKEND = "nvidia-drm";
-      # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-
+      # the following environment variables are lifted from dc-tec's config
       __GL_GSYNC_ALLOWED = "1";
-      __GL_VRR_ALLOWED = "0"; # Controls if Adaptive Sync should be used. Recommended to set as “0” to avoid having problems on some games.
+      # Controls if Adaptive Sync should be used. Recommended to set as “0” to avoid having problems on some games.
+      __GL_VRR_ALLOWED = "0";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
     };
-    sessionVariables = {
-      NIXOS_OZONE_WL = "1"; # Hint Electron Apps to use wayland
-      WLR_NO_HARDWARE_CURSORS = "1"; # Fix cursor rendering issue on wlr nvidia.
-      DEFAULT_BROWSER = "${pkgs.firefox}/bin/firefox"; # Set default browser
-    };
+    # sessionVariables = {
+    #   NIXOS_OZONE_WL = "1"; # Hint Electron Apps to use wayland
+    #   WLR_NO_HARDWARE_CURSORS = "1"; # Fix cursor rendering issue on wlr nvidia.
+    #   DEFAULT_BROWSER = "${pkgs.firefox}/bin/firefox"; # Set default browser
+    # };
     shellAliases = {
       nvidia-settings = "nvidia-settings --config='$XDG_CONFIG_HOME'/nvidia/settings";
     };
   };
 
+  # reference: https://nixos.wiki/wiki/Nvidia#Running_the_new_RTX_SUPER_on_nixos_stable
   ## Enable OpenGL (for stable branch)
   hardware.opengl = { enable = true; };
   ## for unstable branch
   # hardware.graphics.enable = true;
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.powerManagement.enable = false;
-  hardware.nvidia.powerManagement.finegrained = false;
+  hardware.nvidia.powerManagement.finegrained = false; # suspend/resume system corruption issue here
   hardware.nvidia.open = false;
   hardware.nvidia.nvidiaSettings = true;
   # Special config to load the latest (535 or 550) driver for the support of the 4070 SUPER

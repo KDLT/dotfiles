@@ -8,6 +8,7 @@
     ./hyprland.nix
     ./waybar.nix
     ./shell.nix
+    ./ssh.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -23,18 +24,20 @@
   # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
-  programs.git = {
-    enable = true;
-    userEmail = "aguirrekenneth@gmail.com";
-    userName = "kba";
-  };
+  # now defined in ./modules/development/default.nix
+  # programs.git = {
+  #   enable = true;
+  #   userEmail = "aguirrekenneth@gmail.com";
+  #   userName = "kba";
+  # };
 
   # nixpkgs.overlays = [
   #   inputs.kickstart-nix-nvim.overlays.default
   # ];
 
-  xdg.enable = true;
-  xdg.userDirs.createDirectories = true;
+  # now defined in ./modules/graphical/xdg/default.nix
+  # xdg.enable = true;
+  # xdg.userDirs.createDirectories = true;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -50,26 +53,28 @@
     fd
   ];
 
-  programs.ranger = {
-    enable = true;
-    extraConfig = ''
-      # set preview_images true
-    '';
-    settings = {
-      column_ratios = "1,3,3";
-      scroll_offset = 8;
-      unicode_ellipsis = true;
-      preview_images = true;
-      preview_images_method = "kitty";
-    };
-  };
+  # now defined in ./modules/core/utils/ranger/default.nix
+  # programs.ranger = {
+  #   enable = true;
+  #   extraConfig = ''
+  #     # set preview_images true
+  #   '';
+  #   settings = {
+  #     column_ratios = "1,3,3";
+  #     scroll_offset = 8;
+  #     unicode_ellipsis = true;
+  #     preview_images = true;
+  #     preview_images_method = "kitty";
+  #   };
+  # };
 
-  programs.btop = {
-    enable = true;
-    settings = {
-      vim_keys = true;
-    };
-  };
+  # now defined in ./modules/core/utils/btop/default.nix
+  # programs.btop = {
+  #   enable = true;
+  #   settings = {
+  #     vim_keys = true;
+  #   };
+  # };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
