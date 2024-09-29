@@ -1,7 +1,11 @@
 { pkgs, lib, config, user, ... }:
 {
   # i choose to not declare these options here but in ../default.nix instead
-  options = {};
+  options = {
+    kdlt.development = {
+      virtualization.k8s.enable = lib.mkEnableOption "k8s tooling";
+    };
+  };
 
   config = lib.mkIf config.kdlt.development.virtualization.k8s.enable {
     home-manager.users.${user.username} = {

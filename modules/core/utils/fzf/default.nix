@@ -2,7 +2,7 @@
 { user, ... }:
 {
   config = {
-    home-manager.${user.username} = {
+    home-manager.users.${user.username} = {
       programs.fzf = {
         enable = true;
         enableZshIntegration = true;

@@ -2,7 +2,6 @@
 {  config, lib, pkgs, ... }:
 let
   monospace = "CommitMono";
-  # monospace = "Go-Mono";
   serif = "Go-Mono";
   sansSerif = "JetBrainsMono";
   fonts = name: rec {
@@ -12,24 +11,21 @@ let
   };
 in
 {
+  # now defined in ../default.nix, SIKE
   options = {
     kdlt = {
-      graphical.theme.enable = lib.mkEnableOption "use stylix?";
+      graphical.stylix = lib.mkEnableOption "Use Stylix";
     };
   };
 
-  config = lib.mkIf config.kdlt.graphical.theme.enable {
+  config = lib.mkIf config.kdlt.graphical.stylix {
     # im letting stylix handle everything
     stylix = {
       enable = true;
       autoEnable = true;
       polarity = "dark";
-      # image = /home/kba/Pictures/4k-black.jpg;
       image = /home/kba/Pictures/aesthetic-wallpapers/images/manga.png;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/vesper.yaml";
-      # base16Scheme = "${pkgs.base16-schemes}/share/themes/synth-midnight-dark.yaml";
-      # base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine-moon.yaml";
-      # base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
       fonts = {
         monospace.name = (fonts monospace).fontName;
         monospace.package = (fonts monospace).fontPkg;
@@ -48,7 +44,6 @@ in
           desktop = 14;
         };
       };
-
     };
   };
 }

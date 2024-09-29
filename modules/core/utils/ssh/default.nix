@@ -27,7 +27,7 @@ in
     home-manager.users.${username} = { ... }: {
       programs.ssh = {
         enable = true;
-        startAgent = true;
+        # startAgent = true; # TODO: you pretend this does option does not exist
         # hashKnownHosts = true;
         userKnownHostsFile =
           if config.kdlt.core.persistence.enable

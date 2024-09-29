@@ -4,7 +4,7 @@
   imports = [
     ./zsh
     ./oh-my-posh
-    ./starship.nix
+    ./starship
   ];
 
   environment.shells = with pkgs; [

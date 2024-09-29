@@ -1,4 +1,15 @@
-{ ... }:
+{  config, lib, user, ... }:
 {
-  programs.firefox.enable = true;
+  # options = {
+  #   kdlt = {
+  #     graphical.applications.firefox.enable = lib.mkEnableOption "Firefox";
+  #   };
+  # };
+  config = lib.mkIf config.kdlt.graphical.applications.firefox.enable {
+    home-manager.users.${user.username} = {
+      programs.firefox = {
+        enable = true;
+      };
+    };
+  };
 }

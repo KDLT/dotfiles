@@ -14,17 +14,17 @@
     #   (lib.mkIf (!config.kdlt.core.persistence.enable) {})
     # ];
 
-    environment.systempackages = with pkgs; [
+    environment.systemPackages = with pkgs; [
       gnupg
-      pinetry-gtk2
+      pinentry-gtk2
     ];
 
-    home-manager.${user.username} = {
+    home-manager.users.${user.username} = {
       services.gpg-agent = {
         enable = true;
         enableZshIntegration = true;
         enableSshSupport = true;
-        pinetryPackage = pkgs.pinetry-gtk2;
+        pinentryPackage = pkgs.pinentry-gtk2;
         defaultCacheTtl = 46000;
         extraConfig = ''
           allow-preset-passphrase

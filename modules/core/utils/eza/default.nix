@@ -2,7 +2,7 @@
 { user, ... }:
 {
   config = {
-    home-manager.${user.username} = {
+    home-manager.users.${user.username} = {
       programs.eza = {
         enable = true;
         enableZshIntegration = true;

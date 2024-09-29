@@ -1,14 +1,13 @@
 { config, lib, pkgs, ... }:
-let
-in
 {
-  options = {
-    kdlt = {
-      graphical.applications.obsidian.enable = lib.mkEnableOption "obsidian";
-    };
-  };
+  # options = {
+  #   kdlt = {
+  #     graphical.applications.obsidian.enable = lib.mkEnableOption "obsidian";
+  #   };
+  # };
 
   config = lib.mkIf config.kdlt.graphical.applications.obsidian.enable {
-    environment.systemPackages = [ pkgs.obsidian ];
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "obsidian" ];
+    # environment.systemPackages = [ pkgs.obsidian ];
   };
 }

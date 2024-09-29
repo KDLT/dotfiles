@@ -1,7 +1,11 @@
 { pkgs, lib, config, user, ... }:
 {
   # i choose to not declare these options here but in ../default.nix instead
-  options = {};
+  options = {
+    kdlt.development = {
+      virtualization.docker.enable = lib.mkEnableOption "Docker";
+    };
+  };
 
   config = lib.mkIf config.kdlt.development.virtualization.docker.enable {
     # kdlt.core.zfs.systemCacheLinks = [ "/opt/docker" ];

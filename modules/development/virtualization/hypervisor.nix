@@ -1,7 +1,11 @@
 { pkgs, lib, config, user, ... }:
 {
   # i choose to not declare these options here but in ../default.nix instead
-  options = {};
+  options = {
+    kdlt.development = {
+      virtualization.hypervisor.enable = lib.mkEnableOption "Libvirt/KVM";
+    };
+  };
 
   config = lib.mkIf config.kdlt.development.virtualization.hypervisor.enable {
     # kdlt.core.zfs.systemCacheLinks = [ "/var/lib/libvirt" ];

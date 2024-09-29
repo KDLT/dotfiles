@@ -2,7 +2,7 @@
 { config, lib, user, ... }:
 {
   config = {
-    home-manager.${user.username} = {
+    home-manager.users.${user.username} = {
       programs.direnv = {
         enable = lib.mkIf config.kdlt.core.nix.enableDirenv true;
         enableZshIntegration = true;

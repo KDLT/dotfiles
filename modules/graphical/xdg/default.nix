@@ -1,14 +1,11 @@
 { config, lib, pkgs, user, ... }:
-let
-  username = user.username;
-in
 {
   options = {
     kdlt.graphical.xdg.enable = lib.mkEnableOption "xdg folders";
   };
 
   config = lib.mkIf config.kdlt.graphical.xdg.enable {
-    home-manager.users.${username} = {}: {
+    home-manager.users.${user.username} = {
 
       xdg = {
         enable = true;

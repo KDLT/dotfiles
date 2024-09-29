@@ -25,13 +25,14 @@ in
 
     home-manager.users = {
       ${username} = {
+
         home.packages = with pkgs; [
           comma # run package without installing them
           onefetch # git repo summary on terminal
           disfetch # less complex neofetch
         ];
-        programs = {
 
+        programs = {
           zsh.enable = true;
           bash.enable = true;
           fish.enable = false;
@@ -62,17 +63,10 @@ in
           envExtra = ''disfetch'';
           loginExtra = "hyprland";
         };
+
+        programs.bash = { shellAliases = myAliases; };
+        programs.fish = { shellAliases = myAliases; };
       };
     };
   };
-
-  programs.bash = { shellAliases = myAliases; };
-  programs.fish = { shellAliases = myAliases; };
-
-  home.packages = with pkgs; [
-    zsh bash fish
-    eza bat onefetch disfetch
-  ];
-
-
 }

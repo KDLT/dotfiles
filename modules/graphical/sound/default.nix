@@ -4,11 +4,11 @@ in
 {
   options = {
     kdlt = {
-      graphical.sound = lib.mkEnableOption "sound on?";
+      graphical.sound = lib.mkEnableOption "Sound On?";
     };
   };
 
-  config = lib.mkIf config.kdlt.sound.enable {
+  config = lib.mkIf config.kdlt.graphical.sound {
     security.rtkit.enable = true;
 
     # my guess is this creates a custom module that can be found in
@@ -25,12 +25,14 @@ in
     };
 
     hardware = {
-      pulseaudio.enable = true;
+      pulseaudio.enable = false; # true in the lifted config
       bluetooth = {
         enable = true;
         settings = {
-          General = "Control,Gateway,Headset,Media,Sink,Socket,Source";
-          MultiProfile = "multiple";
+          General =  {
+            Enable = "Control,Gateway,Headset,Media,Sink,Socket,Source";
+            MultiProfile = "multiple";
+          };
         };
       };
     };

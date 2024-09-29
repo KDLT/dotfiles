@@ -1,7 +1,4 @@
 { config, lib, user, ... }:
-let
-  username = user.username;
-in
 {
   options = {
     kdlt = {
@@ -10,7 +7,7 @@ in
   };
 
   config = lib.mkIf config.kdlt.graphical.terminal.enable {
-    home-manager.users.${username} = { ... }: {
+    home-manager.users.${user.username} = { ... }: {
 
       programs.kitty = {
         enable = true;

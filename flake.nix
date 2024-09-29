@@ -1,11 +1,10 @@
 {
   description = "Nixos config flake";
 
-  inputs = rec {
-    stable-ver = "24.05";
+  inputs = {
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-${stable-ver}";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
     nur.url = "github:nix-community/NUR"; # nix user repository
     sops-nix.url = "github:Mic92/sops-nix"; # secrets management
@@ -13,7 +12,7 @@
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.inputs.nixpkgs-stable.follows = "nixpkgs-stable";
+    # home-manager.inputs.nixpkgs-stable.follows = "nixpkgs-stable";
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
@@ -25,20 +24,21 @@
 
     nixvim.url = "github:nix-community/nixvim"; # for unstable channel
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
-    nixvim.inputs.nixpkgs-stable.follows = "nixpkgs-stable";
+    # nixvim.inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     # url = "github:nix-community/nixvim/nixos-${stable-ver}"; # for stable unstable channel
     # inputs.nixpkgs.follows = "nixpkgs-stable";
 
     stylix.url = "github:danth/stylix";
   };
 
-  outputs = inputs@{
+  outputs = {
     self,
     nixpkgs,
     home-manager,
     stylix,
     nixvim,
-    ... }:
+    ...
+    } @ inputs :
     let
 
       # https://nixos.wiki/wiki/Nix_Language_Quirks
@@ -58,12 +58,14 @@
 
       sharedModules = [
         # home-manager.nixosModules.home-manager because home-manager is default
-        home-manager.nixosModules
-        # these were previously homeManagerModules
-        stylix.nixosModules.stylix
-        nixvim.nixosModules.nixvim
-        # this points to default.nix that imports core, development, graphical
-        ./modules
+        # CAUTION: WRONG! `home-manager` is required at the end because default does not exist
+        home-manager.nixosModules.home-manager
+        # home-manager.nixosModule
+
+        # stylix.nixosModules.stylix # TODO: commented this out first to tackle the infinite recursion error later
+        # nixvim.nixosModules.nixvim # TODO: commented this out first to tackle the infinite recursion error later
+
+        ./modules # this points to default.nix that imports core, development, graphical
       ];
 
     in
@@ -78,14 +80,22 @@
           specialArgs = {
             # presumably this is where `inherit (self) outputs` comes in handy
             inherit inputs outputs user;
-            # inherit inputs outputs;
+            # all outputs ought to be passed to the special args as one
+
             # inherit inputs;
             # inherit outputs;
             # inherit pkgs;
             # inherit user;
           };
           # sharedmodules contain the ./modules directory and input flakes
-          modules = sharedModules ++ [ ./machines/Super/default.nix ];
+          # modules = sharedModules ++ [ ./machines/Super/default.nix ];
+          modules =  [
+            ./machines/Super/default.nix
+            home-manager.nixosModules.home-manager
+            # stylix.nixosModules.stylix
+            # nixvim.nixosModules.nixvim
+            ./modules # i suspect this should be called last
+          ];
         };
       };
 

@@ -5,7 +5,7 @@
     # home-manager.${user.username} = {...}: {
     # why is the output not a function like above?
 
-    home-manager.${user.username} = {
+    home-manager.users.${user.username} = {
       programs.ripgrep = {
         enable = true;
       };

@@ -10,8 +10,8 @@ in
   options = {
     kdlt.development.git = {
       enable = lib.mkEnableOption "enable github";
-      username = lib.mkOption { default = user.username; };
-      email = lib.mkOption { default = user.email; };
+      # username = lib.mkOption { default = user.username; }; # TODO this should not be commented out
+      # email = lib.mkOption { default = user.email; }; # TODO this should not be commented out
     };
   };
 

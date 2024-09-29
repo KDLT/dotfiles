@@ -1,3 +1,4 @@
+# ~/dotfiles/modules/core/connectivity/wireless/default.nix
 { config, lib, user, ... }:
 let
 in

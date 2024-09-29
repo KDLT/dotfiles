@@ -1,3 +1,4 @@
+# ~/dotfiles/modules/core/connectivity/systemd/default.nix
 _: {
   systemd.services."enable-wifi-on-boot" = {
     description = "Enable Wifi during boot";

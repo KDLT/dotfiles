@@ -1,5 +1,5 @@
 # ~/dotfiles/modules/core/utils/yazi/default.nix
-{ user }: {
+{ user, ... }: { # you CANNOT omit the triple dot syntax when passing an input
   config = {
     home-manager.users.${user.username} = {
       programs.yazi = {

@@ -1,20 +1,18 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, inputs, user, ... }:
 {
-  description = ''
-    Where most declarations from configuration.nix reside, e.g., timezone, system packages
-  '';
-
+  # Where most declarations from configuration.nix reside, e.g., timezone, system packages
   options = {
     kdlt = {
       stateVersion = lib.mkOption {
         example = "24.05";
       };
-      dataPrefix = lib.mkOption {
-        example = "/data";
-      };
-      cachePrefix = lib.mkOption {
-        example = "/cache";
-      };
+      # these are declared in ../storage/
+      # dataPrefix = lib.mkOption {
+      #   example = "/data";
+      # };
+      # cachePrefix = lib.mkOption {
+      #   example = "/cache";
+      # };
     };
   };
 
@@ -42,6 +40,8 @@
         xclip
         bat eza oh-my-posh fortune cowsay lolcat
         disfetch onefetch
+
+        # inputs.nixvim.packages.x86_64-linux.default
       ];
 
       variables = {

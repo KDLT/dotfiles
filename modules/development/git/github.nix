@@ -13,11 +13,12 @@ let
   };
 in
 {
-  kdlt.core.zfs = lib.mkMerge [
-    (lib.mkIf config.kdlt.core.persistence.enable { homeCacheLinks = [".gh"]; })
-    (lib.mkIf (!config.kdlt.core.persistence.enable) {})
-  ];
+  # kdlt.core.zfs = lib.mkMerge [
+  #   (lib.mkIf config.kdlt.core.persistence.enable { homeCacheLinks = [".gh"]; })
+  #   (lib.mkIf (!config.kdlt.core.persistence.enable) {})
+  # ];
 
-  # TODO: check if the _: can really stand in place of {...}:
+  # TODO-COMPLETE: check if the _: can really stand in place of {...}:
+  # yes but strictly for those not needing any other input like lib or pkgs
   home-manager.users.${user.username} = _: (kdlt-gh "/home/${user.username}");
 }

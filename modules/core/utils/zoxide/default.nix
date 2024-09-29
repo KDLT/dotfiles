@@ -1,5 +1,5 @@
 # ~/dotfiles/modules/core/utils/zoxide/default.nix
-{ user }: {
+{ user, ... }: {
   config = {
     home-manager.users.${user.username} = {
       programs.zoxide = {

@@ -5,8 +5,8 @@ in
 {
   options = {
     kdlt.core.nix = {
-      enableDirenv = lib.mkOption { default = true; };
-      unfreePackages = lib.mkOption { default = []; };
+      enableDirenv = lib.mkOption { default = true; }; # TODO this should not be commented out
+      unfreePackages = lib.mkOption { default = []; }; # TODO this should not be commented out
     };
   };
 

@@ -1,21 +1,22 @@
-# TODO: refactor this in the new configuration tree
 # Reference: https://github.com/GaetanLepage/nix-config/tree/master/home/modules/tui/neovim
 { config, lib, pkgs, user, ... }:
 let
 in
 {
+  # imports exist outside the options and config attribute set
+  imports = [
+    ./options.nix
+    ./keymaps.nix
+    ./colorscheme.nix
+    ./completions.nix
+    ./plugins
+  ];
+
   options = {
     kdlt.core.nixvim.enable = lib.mkEnableOption "nixvim";
   };
 
   config = lib.mkIf config.kdlt.core.nixvim.enable {
-    imports = [
-      ./options.nix
-      ./keymaps.nix
-      ./colorscheme.nix
-      ./completions.nix
-      ./plugins
-    ];
     home-manager.users.${user.username} = {...}: {
       home.shellAliases = {
         v = "nvim";

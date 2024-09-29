@@ -1,28 +1,39 @@
 { config, inputs, lib, pkgs, user, ... }:
-let
-  username = user.userName;
-in
 {
+  # imports = [];
+  # kdlt.core.zfs = lib.mkMerge [
+  #   (lib.mkIf config.kdlt.core.persistence.enable {
+  #     homeCacheLinks = [ ".config" ".cache" ".local" ".cloudflared" ];
+  #   })
+  #   (lib.mkIf (!config.dc-tec.core.persistence.enable) {})
+  # ];
+  # colorScheme = inputs.nix-colors.colorScheme.catpuccin-macchiato;
+  # catppuccin.flavor = "macchiato";
+
   home-manager = {
-
     useGlobalPkgs = true;
-    useUserPkgs = true;
+    useUserPackages = true;
 
-    users.${username} = { ... }: {
-      imports = [];
-      home = {
-        stateVersion = config.${username}.stateVersion;
-        homeDirectory = "/home/${username}";
-        # packages = [ inputs.nixvim.packages.x86_64-linux.default ];
-        systemd.user = {
-          sessionVariables = config.home-manager.users.${username}.home.sessionVariables;
+    users = {
+      ${user.username} = {...}: {
+        # imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
+        home = {
+          stateVersion = config.kdlt.stateVersion;
+          # homeDirectory = "/home/${user.username}"; # some error about conflicting declaration here
+          # packages = [];
+
+          # TODO: Infinite recursion gets triggered here, this is the culprit
+          # systemd.user = {
+          #   sessionVariables = config.home-manager.users.${user.username}.home.sessionVariables;
+          # };
         };
+      };
+
+      root = _: { # the underscore colon _: might just be the same as {...}:
+        home.stateVersion = config.kdlt.stateVersion;
       };
     };
 
-    users.root = _: { # the underscore colon _: might just be the same as {...}:
-      home.stateVersion = config.${username}.stateVersion;
-    };
 
   };
 }

@@ -1,38 +1,36 @@
 { config, lib, ... }:
 with lib;
 {
+  # TODO: only stylix errors out allegedly not existing
   imports = [
     ./desktop
     ./xdg
     ./terminal
-    ./theme
+    # ./stylix
     ./applications
     ./sound
   ];
 
   options = {
     kdlt.graphical = {
-      enable = mkEnableOption "graphical env?";
-      laptop = mkEnableOption "laptop config?";
+      enable = mkEnableOption "Graphical Environment";
+      laptop = mkEnableOption "Laptop config";
+      # sound = mkEnableOption "Enable Sound";
+      # stylix = mkEnableOption "Use Stylix";
     };
   };
 
   config = mkIf config.kdlt.graphical.enable {
     kdlt.graphical = {
-      hyprland.enable = mkDefault true;
-      hyprlock.enable = mkDefault true;
-      swww.enable = mkDefault true;
-      waybar.enable = mkDefault true;
+      laptop = mkDefault false;
+      sound = mkDefault true;
+      # stylix = mkDefault true;
       terminal.enable = mkDefault true;
       xdg.enable = mkDefault true;
-      fuzzel.enable = mkDefault true;
-      sound.enable = mkDefault true;
-      stylix.enable = mkDefault true;
-      applications.enable = {
-        firefox.enable = true;
-        obsidian.enable = true;
+      applications = {
+        firefox.enable = mkDefault true;
+        obsidian.enable = mkDefault true;
       };
     };
   };
-
 }

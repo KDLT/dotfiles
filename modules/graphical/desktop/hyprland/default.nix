@@ -10,8 +10,8 @@ in
 {
   options = {
     kdlt = {
-      graphical.hyprland.enable = lib.mkEnableOption "enable hyprlandwm";
-      core.gpu.nvidia = lib.mkEnableOption "is gpu nvidia?";
+      graphical.hyprland.enable = lib.mkEnableOption "Enable hyprlandwm"; # now defined in ../../default.nix, SIKE
+      # core.nvidia.enable = lib.mkEnableOption "is gpu nvidia?"; # now defined in machines
     };
   };
 
@@ -26,7 +26,7 @@ in
     # nvidia hyprland reference: https://wiki.hyprland.org/Nvidia/#installation
 
     # for wayland compositors to load properly these nvidia driver modules need to be loaded in initramfs
-    boot = lib.mkIf config.kdlt.core.gpu.nvidia {
+    boot = lib.mkIf config.kdlt.core.nvidia.enable {
       # normally in /etc/modprobe.d/nvidia.conf located in /etc/modprobe.d/nixos.conf
       extraModprobeConfig = "options nvidia_drm modeset=1 fbdev=1\n";
       # normally in /etc/mkinitcpio.conf located in /etc/modules-load.d/nixos.conf
