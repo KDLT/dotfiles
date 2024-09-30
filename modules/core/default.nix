@@ -4,7 +4,7 @@
     ./connectivity
     ./home-manager
     ./nix
-    # ./nixvim
+    ./nixvim
     ./shells
     ./sops
     ./storage

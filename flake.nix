@@ -60,7 +60,7 @@
         # home-manager.nixosModules.home-manager because home-manager is default
         # CAUTION: WRONG! `home-manager` is required at the end because default does not exist
         home-manager.nixosModules.home-manager
-        # home-manager.nixosModule
+        # home-manager.nixosModule # CAUTION: BUT! somehow nixosModule singular is the same as above
 
         # stylix.nixosModules.stylix # TODO: commented this out first to tackle the infinite recursion error later
         # nixvim.nixosModules.nixvim # TODO: commented this out first to tackle the infinite recursion error later
@@ -92,8 +92,8 @@
           modules =  [
             ./machines/Super/default.nix
             home-manager.nixosModules.home-manager
-            # stylix.nixosModules.stylix
-            # nixvim.nixosModules.nixvim
+            stylix.nixosModules.stylix
+            nixvim.nixosModules.nixvim
             ./modules # i suspect this should be called last
           ];
         };

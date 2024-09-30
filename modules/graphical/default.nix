@@ -6,7 +6,7 @@ with lib;
     ./desktop
     ./xdg
     ./terminal
-    # ./stylix
+    ./stylix
     ./applications
     ./sound
   ];

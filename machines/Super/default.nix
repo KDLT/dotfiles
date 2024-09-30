@@ -9,6 +9,11 @@
   };
 
   kdlt = {
+    mainUser = {
+      username = "kba";
+      fullname = "Kenneth B. Aguirre";
+      email = "aguirrekenneth@gmail.com";
+    };
     stateVersion = "24.05";
     core = {
       btrfs = {

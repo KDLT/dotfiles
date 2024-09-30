@@ -1,3 +1,4 @@
+# ~/dotfiles/modules/core/home-manager/default.nix
 { config, inputs, lib, pkgs, user, ... }:
 {
   # imports = [];
