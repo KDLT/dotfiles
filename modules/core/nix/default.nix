@@ -1,12 +1,12 @@
-{ config, lib, pkgs, user, ...}:
+{ config, lib, ...}:
 let
-  username = user.username;
+  username = config.kdlt.mainUser.username;
 in
 {
   options = {
     kdlt.core.nix = {
       enableDirenv = lib.mkOption { default = true; }; # TODO this should not be commented out
-      unfreePackages = lib.mkOption { default = []; }; # TODO this should not be commented out
+      unfreePackages = lib.mkOption { default = []; }; # TODO this conflicts with nvidia unfree
     };
   };
 
@@ -26,11 +26,15 @@ in
       flake = "/home/${username}/dotfiles";
     };
 
+    nixpkgs.config = {
+      allowUnfree = true;
+    };
+
     nix = {
       settings = {
         trusted-users = [ username "@wheel" ];
         experimental-features = [ "nix-command" "flakes" ];
-        # warn-dirty = false;
+        warn-dirty = false;
       };
 
       # garbage collect
@@ -42,7 +46,7 @@ in
 
       nixPath = [
         "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-        # "nixos-config=/home/kba/dotfiles/configuration.nix"
+        "nixos-config=/home/kba/dotfiles/machines/Super/default.nix"
         "/nix/var/nix/profiles/per-user/root/channels"
       ];
     };

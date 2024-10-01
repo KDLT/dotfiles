@@ -21,8 +21,8 @@ in
       kdlt-git = {
         programs.git = {
           enable = true;
-          userName = user.username;
-          userEmail = user.email;
+          userName = config.kdlt.mainUser.username;
+          userEmail = config.kdlt.mainUser.email;
 
           # TODO: git configs i'm not familiar with yet so commented out
           # extraConfig = {
@@ -49,7 +49,7 @@ in
     in
     {
       # see the multiple userspaces here
-      home-manager.users.${user.username} = {...}: kdlt-git;
+      home-manager.users.${config.kdlt.mainUser.username} = {...}: kdlt-git;
       home-manager.users.root = {...}: kdlt-git;
     };
 }

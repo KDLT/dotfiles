@@ -8,7 +8,7 @@
   };
 
   config = lib.mkIf config.kdlt.development.ansible.enable {
-    home-manager.users.${user.username} = {
+    home-manager.users.${config.kdlt.mainUser.username} = {
       home.packages = with pkgs; [
         ansible
         ansible-builder

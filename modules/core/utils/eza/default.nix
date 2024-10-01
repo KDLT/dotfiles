@@ -1,8 +1,8 @@
 # ~/dotfiles/modules/core/utils/eza/default.nix
-{ user, ... }:
+{ config, ... }:
 {
   config = {
-    home-manager.users.${user.username} = {
+    home-manager.users.${config.kdlt.mainUser.username} = {
       programs.eza = {
         enable = true;
         enableZshIntegration = true;

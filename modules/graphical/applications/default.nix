@@ -5,14 +5,14 @@
     ./obsidian
   ];
 
-  options = {
-    kdlt = {
-      graphical.applications = {
-        firefox.enable = lib.mkEnableOption "Firefox";
-        obsidian.enable = lib.mkEnableOption "Obsidian";
-      };
-    };
-  };
+  # options = {
+  #   kdlt = {
+  #     graphical.applications = {
+  #       firefox.enable = lib.mkEnableOption "Firefox";
+  #       obsidian.enable = lib.mkEnableOption "Obsidian";
+  #     };
+  #   };
+  # };
 
-  config = {};
+  # config = {};
 }

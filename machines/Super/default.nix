@@ -3,7 +3,7 @@
   imports = [ ./hardware.nix ];
 
   networking = {
-    hostName = "Super";
+    hostName = "K-Super";
     # hostId = "";
     # nameservers = [ "" "" ];
   };
@@ -11,7 +11,7 @@
   kdlt = {
     mainUser = {
       username = "kba";
-      fullname = "Kenneth B. Aguirre";
+      fullname = "Kenneth Balboa Aguirre";
       email = "aguirrekenneth@gmail.com";
     };
     stateVersion = "24.05";
@@ -28,15 +28,22 @@
       };
       nix = {
         enableDirenv = false;
-        unfreePackages = [];
+        # unfreePackages = [];
+      };
+      nixvim = {
+      	enable = true;
       };
     };
     graphical = {
       enable = true;
       sound = true;
       laptop = false;
-      # stylix = true;
-      # hyprland.enable = false;
+      stylix = {
+        enable = true;
+      };
+      hyprland = {
+        enable = true;
+      };
       xdg.enable = true;
     };
   };

@@ -1,11 +1,11 @@
 # ~/dotfiles/modules/core/utils/ripgrep/default.nix
-{ user, ... }:
+{ config, ... }:
 {
   config = {
     # home-manager.${user.username} = {...}: {
     # why is the output not a function like above?
 
-    home-manager.users.${user.username} = {
+    home-manager.users.${config.kdlt.mainUser.username} = {
       programs.ripgrep = {
         enable = true;
       };

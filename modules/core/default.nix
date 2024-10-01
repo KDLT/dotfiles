@@ -1,10 +1,9 @@
 { ... }: {
-  # TODO: only nixvim to fix, programs.nixvim not recognized
   imports = [
     ./connectivity
     ./home-manager
     ./nix
-    ./nixvim
+    ./nixvim # nixvim not working
     ./shells
     ./sops
     ./storage

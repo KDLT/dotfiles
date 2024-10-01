@@ -8,7 +8,7 @@
   };
 
   config = lib.mkIf config.kdlt.development.python.enable {
-    home-manager.users.${user.username} = {
+    home-manager.users.${config.kdlt.mainUser.username} = {
       home.packages = [
         pkgs.python312
         # pkgs.python312Full # i wonder what full means

@@ -1,9 +1,9 @@
 # ~/dotfiles/modules/core/shells/starship/default.nix
 # directly stolen from dc-tec
-{lib, user, ...}: {
+{lib, config, ...}: {
   config = {
     home-manager.users = {
-      ${user.username} = {
+      ${config.kdlt.mainUser.username} = {
         programs.starship = {
           enable = true;
           # catppuccin.enable = true; # requires extra setup from flakes

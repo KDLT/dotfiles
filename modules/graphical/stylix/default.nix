@@ -1,5 +1,5 @@
 # ~/dotfiles/modules/graphical/stylix/default.nix
-{  config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   monospace = "CommitMono";
   serif = "Go-Mono";
@@ -11,39 +11,47 @@ let
   };
 in
 {
-  # now defined in ../default.nix, SIKE
   options = {
     kdlt = {
-      graphical.stylix = lib.mkEnableOption "Use Stylix";
+      graphical.stylix.enable = lib.mkEnableOption "Use Stylix";
     };
   };
 
-  config = lib.mkIf config.kdlt.graphical.stylix {
-    # im letting stylix handle everything
-    stylix = {
-      enable = true;
-      autoEnable = true;
-      polarity = "dark";
-      image = /home/kba/Pictures/aesthetic-wallpapers/images/manga.png;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/vesper.yaml";
-      fonts = {
-        monospace.name = (fonts monospace).fontName;
-        monospace.package = (fonts monospace).fontPkg;
-        sansSerif.name = (fonts sansSerif).fontName;
-        sansSerif.package = (fonts sansSerif).fontPkg;
-        serif.name = (fonts serif).fontName;
-        serif.package = (fonts serif).fontPkg;
-        emoji = {
-          name = "Noto Emoji";
-          package = pkgs.noto-fonts-monochrome-emoji;
-        };
-        sizes = {
-          terminal = 18;
-          applications = 14;
-          popups = 12;
-          desktop = 14;
-        };
-      };
-    };
+  config = lib.mkIf config.kdlt.graphical.stylix.enable {
+    # stylix.enable = true;
+    # stylix.image = /home/kba/Pictures/aesthetic-wallpapers/images/manga.png;
+
+    # home-manager.users.${config.kdlt.mainUser.username} = {...}: {
+    #   stylix.enable = true;
+    #   stylix.image = /home/kba/Pictures/aesthetic-wallpapers/images/manga.png;
+    # };
   };
+
+  # config = lib.mkIf config.kdlt.graphical.stylix {
+  #   stylix = {
+  #     enable = true; # TODO: enabling this just causes infinite recursion
+  #     autoEnable = true;
+  #     polarity = "dark";
+  #     image = /home/kba/Pictures/aesthetic-wallpapers/images/manga.png;
+  #     base16Scheme = "${pkgs.base16-schemes}/share/themes/vesper.yaml";
+  #     fonts = {
+  #       monospace.name = (fonts monospace).fontName;
+  #       monospace.package = (fonts monospace).fontPkg;
+  #       sansSerif.name = (fonts sansSerif).fontName;
+  #       sansSerif.package = (fonts sansSerif).fontPkg;
+  #       serif.name = (fonts serif).fontName;
+  #       serif.package = (fonts serif).fontPkg;
+  #       emoji = {
+  #         name = "Noto Emoji";
+  #         package = pkgs.noto-fonts-monochrome-emoji;
+  #       };
+  #       sizes = {
+  #         terminal = 18;
+  #         applications = 14;
+  #         popups = 12;
+  #         desktop = 14;
+  #       };
+  #     };
+  #   };
+  # };
 }

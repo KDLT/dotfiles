@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, user, ... }:
+{ config, lib, pkgs, ... }:
 {
   # Where most declarations from configuration.nix reside, e.g., timezone, system packages
   options = {
@@ -57,7 +57,7 @@
         enable = true;
         extraRules = [
           { # these users would not be required to enter passwords
-            users = [ "${user.username}" ];
+            users = [ "${config.kdlt.mainUser.username}" ];
             noPass = true;
           }
         ];

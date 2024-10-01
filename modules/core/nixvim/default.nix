@@ -1,5 +1,5 @@
 # Reference: https://github.com/GaetanLepage/nix-config/tree/master/home/modules/tui/neovim
-{ config, lib, pkgs, user, ... }:
+{ config, lib, ... }:
 let
 in
 {
@@ -17,10 +17,11 @@ in
   };
 
   config = lib.mkIf config.kdlt.core.nixvim.enable {
-    home-manager.users.${user.username} = {...}: {
+    home-manager.users.${config.kdlt.mainUser.username} = {...}: {
       home.shellAliases = {
         v = "nvim";
       };
+    };
 
       programs.nixvim = {
         enable = true;
@@ -44,5 +45,5 @@ in
         };
       };
     };
-  };
+  # };
 }

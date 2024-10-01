@@ -1,5 +1,8 @@
 # ~/dotfiles/modules/core/home-manager/default.nix
-{ config, inputs, lib, pkgs, user, ... }:
+{ config, ... }:
+let
+  username =  config.kdlt.mainUser.username;
+in
 {
   # imports = [];
   # kdlt.core.zfs = lib.mkMerge [
@@ -16,16 +19,16 @@
     useUserPackages = true;
 
     users = {
-      ${user.username} = {...}: {
+      ${username} = {...}: {
         # imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
         home = {
           stateVersion = config.kdlt.stateVersion;
-          # homeDirectory = "/home/${user.username}"; # some error about conflicting declaration here
+          # homeDirectory = "/home/${username}"; # some error about conflicting declaration here
           # packages = [];
 
           # TODO: Infinite recursion gets triggered here, this is the culprit
           # systemd.user = {
-          #   sessionVariables = config.home-manager.users.${user.username}.home.sessionVariables;
+          #   sessionVariables = config.home-manager.users.${username}.home.sessionVariables;
           # };
         };
       };

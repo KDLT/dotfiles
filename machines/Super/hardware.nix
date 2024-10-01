@@ -5,7 +5,7 @@
 
 {
   # imports = [ (modulesPath + "/installer/scan/not-detected.nix") ]
-  #   ++ lib.mkIf ( config.kdlt.core.gpu.nvidia [ ./nvidia ] );
+  #   ++ [ (lib.mkIf config.kdlt.core.nvidia.enable) ./nvidia.nix ];
 
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ./nvidia.nix ];
 

@@ -1,5 +1,5 @@
 # ~/dotfiles/modules/development/git/lazy_git.nix
-{ user, ... }:
+{ config, user, ... }:
 let
   kdlt-lazygit = homeDir: {
     programs.lazygit = {
@@ -11,5 +11,6 @@ let
   };
 in
 {
-  home-manager.users.${user.username} = _: kdlt-lazygit "/home/${user.username}";
+  home-manager.users.${config.kdlt.mainUser.username} = {...}:
+    kdlt-lazygit "/home/${config.kdlt.mainUser.username}";
 }

@@ -29,11 +29,13 @@
     # inputs.nixpkgs.follows = "nixpkgs-stable";
 
     stylix.url = "github:danth/stylix";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     self,
     nixpkgs,
+    hyprland,
     home-manager,
     stylix,
     nixvim,
@@ -44,75 +46,57 @@
       # https://nixos.wiki/wiki/Nix_Language_Quirks
       # Since this is inside outputs the self argument allows
       # ALL `outputs` inheritable
-      inherit (self) outputs;
-      # where to inherit from? self;
-      # which to inherit? outputs;
+      inherit (self) outputs; # this makes outputs inheritable below
 
+      # forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ];
       system = "x86_64-linux";
+
       pkgs = nixpkgs.legacyPackages.${system};
       user = {
         username = "kba";
-        fullname = "Kenneth Balboa Aguirre";
+        fullname = "Kenneth B. Aguirre";
         email = "aguirrekenneth@gmail.com";
       };
 
       sharedModules = [
-        # home-manager.nixosModules.home-manager because home-manager is default
-        # CAUTION: WRONG! `home-manager` is required at the end because default does not exist
         home-manager.nixosModules.home-manager
-        # home-manager.nixosModule # CAUTION: BUT! somehow nixosModule singular is the same as above
-
+        # stylix.homeManagerModules.stylix # TODO: commented this out first to tackle the infinite recursion error later
         # stylix.nixosModules.stylix # TODO: commented this out first to tackle the infinite recursion error later
-        # nixvim.nixosModules.nixvim # TODO: commented this out first to tackle the infinite recursion error later
-
+        nixvim.nixosModules.nixvim # TODO: commented this out first to tackle the infinite recursion error later
         ./modules # this points to default.nix that imports core, development, graphical
       ];
 
     in
       {
       # not sure if this is required since i'm already inheriting outputs in specialArgs
-      packages = pkgs;
+      # packages = pkgs;
+
+      # packages = forAllSystems (system:
+      #   let
+      #     pkgs = nixpkgs.legacyPackages.${system};
+      #   in
+      #     import ./pkgs {inherit pkgs;});
 
       nixosConfigurations = {
-      # Super is my selected hostname
-        Super = nixpkgs.lib.nixosSystem {
-          system = system;
+        Super = nixpkgs.lib.nixosSystem { # Super is my selected hostname
+          # system = system;
+          # pkgs = pkgs;
           specialArgs = {
             # presumably this is where `inherit (self) outputs` comes in handy
-            inherit inputs outputs user;
+            inherit inputs outputs; # this does not work, does it?
             # all outputs ought to be passed to the special args as one
+
+            # inherit inputs outputs;
 
             # inherit inputs;
             # inherit outputs;
-            # inherit pkgs;
+
+            # inherit inputs;
             # inherit user;
           };
           # sharedmodules contain the ./modules directory and input flakes
-          # modules = sharedModules ++ [ ./machines/Super/default.nix ];
-          modules =  [
-            ./machines/Super/default.nix
-            home-manager.nixosModules.home-manager
-            stylix.nixosModules.stylix
-            nixvim.nixosModules.nixvim
-            ./modules # i suspect this should be called last
-          ];
+          modules = sharedModules ++ [ ./machines/Super/default.nix ];
         };
       };
-
-      # homeConfigurations."kba" = home-manager.lib.homeManagerConfiguration {
-      #   inherit pkgs;
-      #
-      #   # Specify your home configuration modules here, for example,
-      #   # the path to your home.nix.
-      #   modules = [
-      #     ./home.nix
-      #     nixvim.homeManagerModules.nixvim
-      #     stylix.homeManagerModules.stylix
-      #   ];
-      #
-      #   # Optionally use extraSpecialArgs
-      #   # to pass through arguments to home.nix
-      #   extraSpecialArgs = {inherit inputs;};
-      # };
     };
 }

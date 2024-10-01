@@ -1,7 +1,7 @@
 # modules/core/shells/zsh/default.nix
-{ pkgs, lib, config, user, ...}:
+{ pkgs, lib, config, ...}:
 let
-  username = user.username;
+  username = config.kdlt.mainUser.username;
   myAliases = {
     ll = "eza --icons -lTa -L=1";
     cat = "bat";

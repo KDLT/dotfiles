@@ -9,13 +9,14 @@
     };
   };
   config = lib.mkIf config.kdlt.core.nvidia.enable {
-    # unfree packages required by nvidia to be installed
-    nixpkgs.config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "nvidia-x11"
-        "nvidia-settings"
-        "nvidia-persistenced"
-      ];
+
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "nvidia-x11"
+      "nvidia-settings"
+      "nvidia-persistenced"
+    ];
+
+    # nixpkgs.config.allowUnfree = true;
 
     # Load nvidia driver for Xorg and Wayland
     services.xserver.videoDrivers = ["nvidia"];
@@ -35,8 +36,10 @@
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       # package = lib.mkIf (!config.kdlt.nvidia.super) config.boot.kernelPackages.nvidiaPackages.stable;
       package =
+        # no bang before config is wrong, i'm just testing
+        # if config.kdlt.core.nvidia.super # use the package below if nvidia gpu is not super
         if !config.kdlt.core.nvidia.super # use the package below if nvidia gpu is not super
-          then config.boot.kernelPackages.nvidiaPackages.stable-ver
+          then config.boot.kernelPackages.nvidiaPackages.stable
         else
           # reference: https://nixos.wiki/wiki/Nvidia#Running_the_new_RTX_SUPER_on_nixos_stable
           # Special config to load the latest 550 driver for the support of SUPER series card

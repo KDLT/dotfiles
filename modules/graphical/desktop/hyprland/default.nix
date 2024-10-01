@@ -1,8 +1,6 @@
-{ config, lib, pkgs, inputs, user, ...}:
+{ config, lib, pkgs, inputs, ...}:
 
 let
-  username = user.username;
-
   hyprlandPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   hyprlandPortalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 in
@@ -59,7 +57,16 @@ in
     ];
 
     # TODO: test if this xserver setting is required by hyprland
-    services.xserver.enable = true;
+    # services.xserver.enable = true;
+
+    # is this the login screen?
+    services.displayManager = {
+      sddm = {
+        enable = true;
+        package = pkgs.kdePackages.sddm;
+        wayland.enable = true;
+      };
+    };
 
     # # hyprland, hyprlock, & waybar
     programs = {
@@ -81,7 +88,7 @@ in
       configPackages = [ hyprlandPortalPackage ]; # pkgs.xdg-desktop-portal-gtk
     };
 
-    home-manager.users."${username}" = { ... }: {
+    home-manager.users."${config.kdlt.mainUser.username}" = { ... }: {
 
       home.packages = with pkgs; [
         # for qtwayland support packages

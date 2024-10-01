@@ -1,12 +1,12 @@
 # ~/dotfiles/modules/graphical/desktop/fuzzel.nix
-{ config, lib, pkgs, user, ...}:
+{ config, lib, pkgs, ...}:
 {
   options = {
     kdlt.graphical.fuzzel.enable = lib.mkEnableOption "fuzzel";
   };
   config = lib.mkIf config.kdlt.graphical.fuzzel.enable {
     home-manager.users = {
-      ${user.username} = {
+      ${config.kdlt.mainUser.username} = {
         home.packages = with pkgs; [ papirus-icon-theme ];
         programs.fuzzel = {
           enable = true;

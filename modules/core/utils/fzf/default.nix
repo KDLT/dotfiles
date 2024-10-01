@@ -1,8 +1,8 @@
 # ~/dotfiles/modules/core/utils/fzf/default.nix
-{ user, ... }:
+{ config, ... }:
 {
   config = {
-    home-manager.users.${user.username} = {
+    home-manager.users.${config.kdlt.mainUser.username} = {
       programs.fzf = {
         enable = true;
         enableZshIntegration = true;

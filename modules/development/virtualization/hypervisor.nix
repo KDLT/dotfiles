@@ -10,7 +10,7 @@
   config = lib.mkIf config.kdlt.development.virtualization.hypervisor.enable {
     # kdlt.core.zfs.systemCacheLinks = [ "/var/lib/libvirt" ];
 
-    users.users.${user.username}.extraGroups = [ "libvirtd" ];
+    users.users.${config.kdlt.mainUser.username}.extraGroups = [ "libvirtd" ];
 
     virtualisation.libvirtd = {
       enable = true;
@@ -30,7 +30,7 @@
       onShutdown = "shutdown";
     };
 
-    home-manager.users.${user.username} = {
+    home-manager.users.${config.kdlt.mainUser.username} = {
       home.packages = [ pkgs.virt-manager ];
     };
 

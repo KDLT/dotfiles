@@ -1,7 +1,7 @@
 # ~/dotfiles/modules/core/utils/zoxide/default.nix
-{ user, ... }: {
+{ config , ... }: {
   config = {
-    home-manager.users.${user.username} = {
+    home-manager.users.${config.kdlt.mainUser.username} = {
       programs.zoxide = {
         enable = true;
         enableZshIntegration = true;

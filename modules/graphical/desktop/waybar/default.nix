@@ -1,11 +1,11 @@
-{ config, lib, user, ...}:
+{ config, lib, ...}:
 {
   options = {
     kdlt.graphical.waybar.enable = lib.mkEnableOption "waybar on";
   };
 
   config = lib.mkIf config.kdlt.graphical.waybar.enable {
-    home-manager.users.${user.username} = { pkgs, ... }: {
+    home-manager.users.${config.kdlt.mainUser.username} = { pkgs, ... }: {
 
       programs.waybar = {
         enable = true;

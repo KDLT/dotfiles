@@ -1,5 +1,5 @@
 # ~/dotfiles/modules/core/utils/gpg/default.nix
-{ user, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   config = {
     # kdlt.core.zfs = lib.mkMerge [
@@ -19,7 +19,7 @@
       pinentry-gtk2
     ];
 
-    home-manager.users.${user.username} = {
+    home-manager.users.${config.kdlt.mainUser.username} = {
       services.gpg-agent = {
         enable = true;
         enableZshIntegration = true;

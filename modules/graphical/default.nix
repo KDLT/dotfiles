@@ -15,8 +15,6 @@ with lib;
     kdlt.graphical = {
       enable = mkEnableOption "Graphical Environment";
       laptop = mkEnableOption "Laptop config";
-      # sound = mkEnableOption "Enable Sound";
-      # stylix = mkEnableOption "Use Stylix";
     };
   };
 
@@ -24,7 +22,7 @@ with lib;
     kdlt.graphical = {
       laptop = mkDefault false;
       sound = mkDefault true;
-      # stylix = mkDefault true;
+      # stylix.enable = mkDefault true;
       terminal.enable = mkDefault true;
       xdg.enable = mkDefault true;
       applications = {
