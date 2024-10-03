@@ -1,18 +1,19 @@
 {...}:
 {
   imports = [
-    ./fzf
     ./bat
+    ./bottom
+    ./btop
+    ./direnv
     ./eza
+    ./fzf
     ./gpg
+    ./ranger
+    ./ripgrep
     ./ssh
     ./sshd
-    ./yazi # ranger vs yazi
-    ./ranger
-    ./bottom
-    ./direnv
-    ./ripgrep
-    ./zoxide
     ./tmux
+    ./yazi # ranger vs yazi
+    ./zoxide
   ];
 }

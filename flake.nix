@@ -10,9 +10,11 @@
     sops-nix.url = "github:Mic92/sops-nix"; # secrets management
     impermanence.url = "github:nix-community/impermanence"; # nuke / on every boot
 
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # home-manager.inputs.nixpkgs-stable.follows = "nixpkgs-stable";
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
@@ -24,12 +26,9 @@
 
     nixvim.url = "github:nix-community/nixvim"; # for unstable channel
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
-    # nixvim.inputs.nixpkgs-stable.follows = "nixpkgs-stable";
-    # url = "github:nix-community/nixvim/nixos-${stable-ver}"; # for stable unstable channel
-    # inputs.nixpkgs.follows = "nixpkgs-stable";
 
     stylix.url = "github:danth/stylix";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.inputs.nixpkgs.follows = "nixpkgs-stable";
   };
 
   outputs = {
@@ -37,8 +36,9 @@
     nixpkgs,
     hyprland,
     home-manager,
-    stylix,
+    nix-index-database,
     nixvim,
+    stylix,
     ...
     } @ inputs :
     let
@@ -50,53 +50,45 @@
 
       # forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ];
       system = "x86_64-linux";
-
       pkgs = nixpkgs.legacyPackages.${system};
+
       user = {
         username = "kba";
         fullname = "Kenneth B. Aguirre";
         email = "aguirrekenneth@gmail.com";
       };
 
+      hyprlandFlake = hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+
       sharedModules = [
+        # stylix.homeManagerModules.stylix # TODO: hm.nix gnome dconf issue
+        # stylix.nixosModules.stylix # TODO: still suffering from infinite recursion
+
         home-manager.nixosModules.home-manager
-        # stylix.homeManagerModules.stylix # TODO: commented this out first to tackle the infinite recursion error later
-        # stylix.nixosModules.stylix # TODO: commented this out first to tackle the infinite recursion error later
-        nixvim.nixosModules.nixvim # TODO: commented this out first to tackle the infinite recursion error later
+        nix-index-database.nixosModules.nix-index
+        nixvim.nixosModules.nixvim
         ./modules # this points to default.nix that imports core, development, graphical
       ];
 
     in
       {
-      # not sure if this is required since i'm already inheriting outputs in specialArgs
-      # packages = pkgs;
+      nixosConfigurations = {
+        Super = nixpkgs.lib.nixosSystem { # Super is my selected hostname
+          modules = sharedModules ++ [ ./machines/Super/default.nix ];
+          specialArgs = { inherit inputs outputs user hyprlandFlake; }; # i still don't know what outputs can be used for
 
+          # system = system;
+          # pkgs = pkgs; # only the home-manager module require this, it breaks things in nixosConf
+          # presumably this is where `inherit (self) outputs` comes in handy
+          # sharedmodules contain the ./modules directory and input flakes
+        };
+      };
+
+      # this is used for custom packages
       # packages = forAllSystems (system:
       #   let
       #     pkgs = nixpkgs.legacyPackages.${system};
       #   in
       #     import ./pkgs {inherit pkgs;});
-
-      nixosConfigurations = {
-        Super = nixpkgs.lib.nixosSystem { # Super is my selected hostname
-          # system = system;
-          # pkgs = pkgs;
-          specialArgs = {
-            # presumably this is where `inherit (self) outputs` comes in handy
-            inherit inputs outputs; # this does not work, does it?
-            # all outputs ought to be passed to the special args as one
-
-            # inherit inputs outputs;
-
-            # inherit inputs;
-            # inherit outputs;
-
-            # inherit inputs;
-            # inherit user;
-          };
-          # sharedmodules contain the ./modules directory and input flakes
-          modules = sharedModules ++ [ ./machines/Super/default.nix ];
-        };
-      };
     };
 }

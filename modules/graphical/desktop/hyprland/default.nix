@@ -1,15 +1,8 @@
-{ config, lib, pkgs, inputs, ...}:
-
-let
-  hyprlandPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-  hyprlandPortalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-in
-
+{ config, lib, pkgs, inputs, hyprlandFlake, ...}:
 {
   options = {
     kdlt = {
       graphical.hyprland.enable = lib.mkEnableOption "Enable hyprlandwm"; # now defined in ../../default.nix, SIKE
-      # core.nvidia.enable = lib.mkEnableOption "is gpu nvidia?"; # now defined in machines
     };
   };
 
@@ -44,8 +37,8 @@ in
       ];
 
     environment.systemPackages = with pkgs; [
-      # the actual hyprland package from the input flake
-      hyprlandPackage
+      # to make hyprland executable from tty, it has to be installed
+      # hyprlandFlake.hyprland
       # compatibility between EGL API and wayland protocol
       egl-wayland
       # "desktop contents manipulation"
@@ -73,10 +66,10 @@ in
       xwayland.enable = true;
       hyprland = {
         enable = true;
-        package = hyprlandPackage;
-        portalPackage = hyprlandPortalPackage;
-        xwayland.enable = true;
+        package = hyprlandFlake.hyprland;
+        portalPackage = hyprlandFlake.xdg-desktop-portal-hyprland;
       };
+      hyprland.xwayland.enable = true;
       waybar.enable = true;
       hyprlock.enable = true;
     };
@@ -84,8 +77,8 @@ in
     # hyprland home-manager xdg portal
     xdg.portal = {
       enable = true;
-      extraPortals = [ hyprlandPortalPackage ]; # pkgs.xdg-desktop-portal-gtk
-      configPackages = [ hyprlandPortalPackage ]; # pkgs.xdg-desktop-portal-gtk
+      extraPortals = [ hyprlandFlake.xdg-desktop-portal-hyprland ];
+      configPackages = [ hyprlandFlake.xdg-desktop-portal-hyprland ];
     };
 
     home-manager.users."${config.kdlt.mainUser.username}" = { ... }: {
@@ -99,9 +92,8 @@ in
 
       wayland.windowManager.hyprland = {
         enable = true;
-        # package = hyprFlake.pkg;
-        # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-        # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+        # TODO-COMPLETE: check if this would work uncommented, it does but zlogin must be correct
+        package = hyprlandFlake.hyprland;
         xwayland.enable = true;
         systemd = {
           enable = true;
@@ -110,8 +102,9 @@ in
         };
         settings = {
           "$mod" = "SUPER"; # GUI key = pinky
-          "$terminal" = "kitty";
-          "$browser" = "firefox";
+          # uncertain if the ${pkgs} is necessary
+          "$terminal" = "${pkgs.kitty}/bin/kitty";
+          "$browser" = "${pkgs.firefox}/bin/firefox";
 
           # HID inputs: kb, mouse, touchpad
           input = {
@@ -285,23 +278,29 @@ in
             "$mod, mouse:273, resizewindow"
           ];
 
-          env = [
+          env = let
             # nvidia hyprland environment variables
-            "LIBVA_DRIVER_NAME,nvidia"
-            "XDG_SESSION_TYPE,wayland"
-            "GBM_BACKEND,nvidia-drm"
-            "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-            "NIXOS_OZONE_WL,1"
-
-            ## these are from dc-tec, dunno what they do
-            # "_JAVA_AWT_WM_NONREPARENTING,1"
-            # "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-            # "QT_QPA_PLATFORM,wayland"
-            # "SDL_VIDEODRIVER,wayland"
-            # "GDK_BACKEND,wayland"
-            # "XDG_SESSION_DESKTOP,Hyprland"
-            # "XDG_CURRENT_DESKTOP,Hyprland"
-          ];
+            nvidiaEnv = lib.mkIf config.kdlt.core.nvidia.enable [
+              "LIBVA_DRIVER_NAME,nvidia"
+              "XDG_SESSION_TYPE,wayland"
+              "GBM_BACKEND,nvidia-drm"
+              "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+              "NIXOS_OZONE_WL,1"
+            ];
+            in
+            lib.mkMerge [
+              nvidiaEnv
+              [
+                # these are from dc-tec, dunno what they do
+                "_JAVA_AWT_WM_NONREPARENTING,1"
+                "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+                "QT_QPA_PLATFORM,wayland"
+                "SDL_VIDEODRIVER,wayland"
+                "GDK_BACKEND,wayland"
+                "XDG_SESSION_DESKTOP,Hyprland"
+                "XDG_CURRENT_DESKTOP,Hyprland"
+              ]
+            ];
 
           exec-once = [
             # "${pkgs.waybar}" # this supposedly proper way doesn't seem to work

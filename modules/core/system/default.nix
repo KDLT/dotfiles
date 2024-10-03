@@ -30,9 +30,24 @@
 
     environment = {
       systemPackages = with pkgs; [
-        coreutils dnsutils moreutils usbutils util-linux
-        direnv lshw nmap whois unzip age sops ssh-to-age
-        fastfetch tlrc jdk yq openssl
+        coreutils
+        dnsutils
+        moreutils
+        usbutils
+        util-linux
+        direnv
+        lshw
+        nmap
+        whois
+        unzip
+        age
+        sops
+        ssh-to-age
+        fastfetch
+        tlrc
+        jdk
+        yq
+        openssl
 
         wget git curl
         neovim ranger kitty zsh

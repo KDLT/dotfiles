@@ -14,22 +14,6 @@ with lib;
     ./wlogout
   ];
 
-  # these are now declared in their respective files
-  # options = {
-  #   kdlt.graphical = {
-  #     anyrun.enable = mkEnableOption "Enable Anyrun";
-  #     fuzzel.enable = mkEnableOption "Enable Fuzzel";
-  #     hyprland.enable = mkEnableOption "Enable Hyprland";
-  #     hyprlock.enable = mkEnableOption "Enable Hyprlock";
-  #     hyprpaper.enable = mkEnableOption "Enable Hyprpaper";
-  #     key_management.enable = mkEnableOption "Enable Key_management";
-  #     swaync.enable = mkEnableOption "Enable Swaync";
-  #     swww.enable = mkEnableOption "Enable Swww";
-  #     waybar.enable = mkEnableOption "Enable Waybar";
-  #     wlogout.enable = mkEnableOption "Enable Wlogout";
-  #   };
-  # };
-
   config = mkIf config.kdlt.graphical.enable {
     kdlt.graphical = {
       anyrun.enable = mkDefault true;

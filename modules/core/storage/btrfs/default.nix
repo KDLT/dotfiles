@@ -47,8 +47,8 @@ with lib;
   config = {
     kdlt = {
       core = {
-        persistence = {
-          enable = mkDefault true;
+        persistence = { # TODO: persistence is not yet set up, set to true after doing so
+          enable = mkDefault false;
         };
         btrfs = {
           enable = mkDefault true;

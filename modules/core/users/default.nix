@@ -1,22 +1,22 @@
 # ~/dotfiles/modules/core/users/default.nix
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, user, ... }:
 {
   # TODO: i want to declare username in the machines/<>/default.nix instead of the topmost flake
   # this is the option to enable this attribute
   options = {
     kdlt.mainUser = {
       username = lib.mkOption {
-        default = "${config.kdlt.mainUser.username}";
+        default = "${user.username}";
         type = lib.types.str;
         example = "kba";
       };
       fullname = lib.mkOption {
-        default = "${config.kdlt.mainuser.fullname}";
+        default = "${user.fullname}";
         type = lib.types.str;
         example = "Kenneth Balboa Aguirre";
       };
       email = lib.mkOption {
-        default = "${config.kdlt.mainuser.email}";
+        default = "${user.email}";
         type = lib.types.str;
         example = "aguirrekenneth@gmail.com";
       };

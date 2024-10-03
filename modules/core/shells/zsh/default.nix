@@ -1,5 +1,5 @@
 # modules/core/shells/zsh/default.nix
-{ pkgs, lib, config, ...}:
+{ pkgs, lib, config, hyprlandFlake, ...}:
 let
   username = config.kdlt.mainUser.username;
   myAliases = {
@@ -60,8 +60,11 @@ in
       unsetopt AUTO_CD BEEP NOMATCH
           '';
           shellAliases = myAliases;
-          envExtra = ''disfetch'';
-          loginExtra = "hyprland";
+          # envextra is appended to zshenv, this gets called when spawning new terminals
+          envExtra = ''${pkgs.disfetch}/bin/disfetch'';
+          # to know the specific binary, nix build ${}
+          # loginExtra is prepended to zlogin, this gets called upon login, wow
+          loginExtra = "${hyprlandFlake.hyprland}/bin/Hyprland";
         };
 
         programs.bash = { shellAliases = myAliases; };

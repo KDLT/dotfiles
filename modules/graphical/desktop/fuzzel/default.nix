@@ -14,26 +14,28 @@
             main = {
               terminal = "${pkgs.kitty}/bin/kitty";
               layer = "overlay";
-              # icon-theme = "Papirus-Dark";
+              icon-theme = "Papirus-Dark";
               prompt = " ";
-              # font = "0xProto Nerd Font";
+              font = "CommitMono Nerd Font:size=36";
+
             };
 
             # commented colors out because of stylix conflicting definitions
-            # colors = {
-            #   background = "24273add";
-            #   text = "cad3f5ff";
-            #   selection = "5b6078ff";
-            #   selection-text = "cad3f5ff";
-            #   border = "b7bdf8ff";
-            #   match = "ed8796ff";
-            #   selection-match = "ed8796ff";
-            # };
+            colors = {
+              background = "24273add";
+              text = "cad3f5ff";
+              selection = "5b6078ff";
+              selection-text = "cad3f5ff";
+              border = "b7bdf8ff";
+              match = "ed8796ff";
+              selection-match = "ed8796ff";
+            };
 
             border = {
               radius = "10";
               width = "1";
             };
+
             dmenu = {
               exit-immediately-if-empty = "yes";
             };

@@ -5,8 +5,8 @@ in
 {
   options = {
     kdlt.core.nix = {
-      enableDirenv = lib.mkOption { default = true; }; # TODO this should not be commented out
-      unfreePackages = lib.mkOption { default = []; }; # TODO this conflicts with nvidia unfree
+      enableDirenv = lib.mkOption { default = true; };
+      unfreePackages = lib.mkOption { default = []; };
     };
   };
 
@@ -46,7 +46,7 @@ in
 
       nixPath = [
         "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-        "nixos-config=/home/kba/dotfiles/machines/Super/default.nix"
+        "nixos-config=/home/kba/dotfiles"
         "/nix/var/nix/profiles/per-user/root/channels"
       ];
     };

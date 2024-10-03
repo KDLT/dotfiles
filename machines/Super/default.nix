@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, config, ... }:
 {
   imports = [ ./hardware.nix ];
 
@@ -38,13 +38,21 @@
       enable = true;
       sound = true;
       laptop = false;
-      stylix = {
-        enable = true;
-      };
+      # stylix = {
+      #   enable = true;
+      # };
       hyprland = {
         enable = true;
       };
       xdg.enable = true;
+    };
+    nerdfont = {
+      enable = true;
+      monospace.fontName = "CommitMono";
+      # monospace.fontName = "IBMPlexMono";
+      serif.fontName = "Go-Mono";
+      sansSerif.fontName = "JetBrainsMono";
+      emoji.fontName = "Noto-Emoji";
     };
   };
 }

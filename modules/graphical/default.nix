@@ -1,12 +1,11 @@
 { config, lib, ... }:
 with lib;
 {
-  # TODO: only stylix errors out allegedly not existing
   imports = [
     ./desktop
     ./xdg
     ./terminal
-    ./stylix
+    ./stylix # TODO: still infinite recursion when stylix is enabled
     ./applications
     ./sound
   ];
@@ -22,7 +21,6 @@ with lib;
     kdlt.graphical = {
       laptop = mkDefault false;
       sound = mkDefault true;
-      # stylix.enable = mkDefault true;
       terminal.enable = mkDefault true;
       xdg.enable = mkDefault true;
       applications = {

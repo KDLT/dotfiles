@@ -11,21 +11,32 @@ let
   };
 in
 {
-  options = {
-    kdlt = {
-      graphical.stylix.enable = lib.mkEnableOption "Use Stylix";
-    };
-  };
+  # options = {
+  #   kdlt = {
+  #     graphical.stylix.enable = lib.mkEnableOption "Use Stylix";
+  #   };
+  # };
 
-  config = lib.mkIf config.kdlt.graphical.stylix.enable {
-    # stylix.enable = true;
-    # stylix.image = /home/kba/Pictures/aesthetic-wallpapers/images/manga.png;
+  # config = { # this requires importing the stylix.homeManagerModules.stylix
+  #   home-manager.users.${config.kdlt.mainUser.username} = {
+  #     stylix.enable = true;
+  #   };
+  # };
 
-    # home-manager.users.${config.kdlt.mainUser.username} = {...}: {
-    #   stylix.enable = true;
-    #   stylix.image = /home/kba/Pictures/aesthetic-wallpapers/images/manga.png;
-    # };
-  };
+  # config = {
+  #   stylix.enable = lib.mkDefault true;
+  # };
+
+  # config = lib.mkIf config.kdlt.graphical.stylix.enable {
+  #   stylix.enable = true;
+  #   stylix.image = /home/kba/Pictures/aesthetic-wallpapers/images/manga.png;
+  #
+  #   home-manager.users.${config.kdlt.mainUser.username} = {...}: {
+  #   home-manager.users.${config.kdlt.mainUser.username} = {
+  #     stylix.enable = true;
+  #     stylix.image = /home/kba/Pictures/aesthetic-wallpapers/images/manga.png;
+  #   };
+  # };
 
   # config = lib.mkIf config.kdlt.graphical.stylix {
   #   stylix = {
