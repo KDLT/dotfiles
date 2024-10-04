@@ -6,7 +6,7 @@
   };
   config = lib.mkIf config.kdlt.graphical.fuzzel.enable {
     home-manager.users = {
-      ${config.kdlt.mainUser.username} = {
+      ${config.kdlt.username} = {
         home.packages = with pkgs; [ papirus-icon-theme ];
         programs.fuzzel = {
           enable = true;

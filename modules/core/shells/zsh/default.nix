@@ -1,7 +1,12 @@
 # modules/core/shells/zsh/default.nix
-{ pkgs, lib, config, hyprlandFlake, ...}:
-let
-  username = config.kdlt.mainUser.username;
+{
+  pkgs,
+  lib,
+  config,
+  hyprlandFlake,
+  ...
+}: let
+  username = config.kdlt.username;
   myAliases = {
     ll = "eza --icons -lTa -L=1";
     cat = "bat";
@@ -9,8 +14,7 @@ let
     fetch = "disfetch";
     icat = "kitten icat";
   };
-in
-{
+in {
   options = {};
   config = {
 

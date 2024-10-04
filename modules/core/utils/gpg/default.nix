@@ -19,7 +19,7 @@
       pinentry-gtk2
     ];
 
-    home-manager.users.${config.kdlt.mainUser.username} = {
+    home-manager.users.${config.kdlt.username} = {
       services.gpg-agent = {
         enable = true;
         enableZshIntegration = true;

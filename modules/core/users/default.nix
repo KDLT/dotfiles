@@ -1,10 +1,8 @@
 # ~/dotfiles/modules/core/users/default.nix
 { config, lib, pkgs, user, ... }:
 {
-  # TODO: i want to declare username in the machines/<>/default.nix instead of the topmost flake
-  # this is the option to enable this attribute
   options = {
-    kdlt.mainUser = {
+    kdlt = {
       username = lib.mkOption {
         default = "${user.username}";
         type = lib.types.str;
@@ -30,10 +28,10 @@
       mutableUsers = true;
       users = {
         # ${user.username} = { # this is the original "known working" declaration
-        ${config.kdlt.mainUser.username} = { # this is a different declaration from the rest of the config
+        ${config.kdlt.username} = { # this is a different declaration from the rest of the config
           isNormalUser = true;
           # description = "${user.fullname}"; # this is the original "known working" declaration
-          description = "${config.kdlt.mainUser.fullname}";
+          description = "${config.kdlt.fullname}";
           extraGroups = [ "wheel" "networkmanager" ];
           shell = pkgs.zsh;
           # hashedPasswordFile = config.sops.secrets."users/${username}".path;

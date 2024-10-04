@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   options = {
     kdlt = {
       core = {
@@ -9,12 +13,12 @@
     };
   };
   config = lib.mkIf config.kdlt.core.nvidia.enable {
-
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "nvidia-x11"
-      "nvidia-settings"
-      "nvidia-persistenced"
-    ];
+    nixpkgs.config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "nvidia-x11"
+        "nvidia-settings"
+        "nvidia-persistenced"
+      ];
 
     # nixpkgs.config.allowUnfree = true;
 
@@ -36,10 +40,8 @@
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       # package = lib.mkIf (!config.kdlt.nvidia.super) config.boot.kernelPackages.nvidiaPackages.stable;
       package =
-        # no bang before config is wrong, i'm just testing
-        # if config.kdlt.core.nvidia.super # use the package below if nvidia gpu is not super
         if !config.kdlt.core.nvidia.super # use the package below if nvidia gpu is not super
-          then config.boot.kernelPackages.nvidiaPackages.stable
+        then config.boot.kernelPackages.nvidiaPackages.stable
         else
           # reference: https://nixos.wiki/wiki/Nvidia#Running_the_new_RTX_SUPER_on_nixos_stable
           # Special config to load the latest 550 driver for the support of SUPER series card
@@ -57,7 +59,7 @@
               settingsSha256 = "sha256-c30AQa4g4a1EHmaEu1yc05oqY01y+IusbBuq+P6rMCs=";
               persistencedSha256 = "sha256-11tLSY8uUIl4X/roNnxf5yS2PQvHvoNjnd2CB67e870=";
 
-              patches = [ rcu_patch ];
+              patches = [rcu_patch];
             };
     };
 

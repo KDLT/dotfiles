@@ -5,7 +5,7 @@
   };
 
   config = lib.mkIf config.kdlt.graphical.waybar.enable {
-    home-manager.users.${config.kdlt.mainUser.username} = { pkgs, ... }: {
+    home-manager.users.${config.kdlt.username} = { pkgs, ... }: {
 
       programs.waybar = {
         enable = true;

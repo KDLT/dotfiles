@@ -1,7 +1,10 @@
 # ~/dotfiles/modules/core/home-manager/default.nix
-{ config, ... }:
-let
-  username =  config.kdlt.mainUser.username;
+{
+  config,
+  pkgs,
+  ...
+}: let
+  username =  config.kdlt.username;
 in
 {
   # imports = [];
@@ -23,13 +26,15 @@ in
         # imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
         home = {
           stateVersion = config.kdlt.stateVersion;
-          # homeDirectory = "/home/${username}"; # some error about conflicting declaration here
-          # packages = [];
 
-          # TODO: Infinite recursion gets triggered here, this is the culprit
-          # systemd.user = {
-          #   sessionVariables = config.home-manager.users.${username}.home.sessionVariables;
-          # };
+          homeDirectory = "/home/${username}";
+
+          packages = with pkgs; [
+            libnotify # sends desktop notifs to notif daemon
+            wireguard-tools # secure tunneling whatever that means
+
+            ventoy # endgame bootable usb
+          ];
         };
       };
 

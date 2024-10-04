@@ -3,7 +3,7 @@
 {lib, config, ...}: {
   config = {
     home-manager.users = {
-      ${config.kdlt.mainUser.username} = {
+      ${config.kdlt.username} = {
         programs.starship = {
           enable = true;
           # catppuccin.enable = true; # requires extra setup from flakes

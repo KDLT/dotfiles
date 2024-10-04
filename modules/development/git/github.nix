@@ -20,5 +20,5 @@ in
 
   # TODO-COMPLETE: check if the _: can really stand in place of {...}:
   # yes but strictly for those not needing any other input like lib or pkgs
-  home-manager.users.${config.kdlt.mainUser.username} = _: (kdlt-gh "/home/${config.kdlt.mainUser.username}");
+  home-manager.users.${config.kdlt.username} = _: (kdlt-gh "/home/${config.kdlt.username}");
 }

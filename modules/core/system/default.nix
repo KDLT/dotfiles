@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   # Where most declarations from configuration.nix reside, e.g., timezone, system packages
   options = {
@@ -30,6 +35,8 @@
 
     environment = {
       systemPackages = with pkgs; [
+        udiskie
+
         coreutils
         dnsutils
         moreutils
@@ -72,7 +79,7 @@
         enable = true;
         extraRules = [
           { # these users would not be required to enter passwords
-            users = [ "${config.kdlt.mainUser.username}" ];
+            users = [ "${config.kdlt.username}" ];
             noPass = true;
           }
         ];

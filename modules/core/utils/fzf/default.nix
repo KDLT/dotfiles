@@ -2,7 +2,7 @@
 { config, ... }:
 {
   config = {
-    home-manager.users.${config.kdlt.mainUser.username} = {
+    home-manager.users.${config.kdlt.username} = {
       programs.fzf = {
         enable = true;
         enableZshIntegration = true;

@@ -1,7 +1,7 @@
 # ~/dotfiles/modules/core/utils/ranger/default.nix
 { config, ... }: {
   config = {
-    home-manager.users.${config.kdlt.mainUser.username} = {
+    home-manager.users.${config.kdlt.username} = {
       programs.ranger = {
         enable = true;
         extraConfig = ''

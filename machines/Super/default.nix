@@ -1,6 +1,9 @@
-{ pkgs, config, ... }:
 {
-  imports = [ ./hardware.nix ];
+  pkgs,
+  config,
+  ...
+}: {
+  imports = [./hardware.nix];
 
   networking = {
     hostName = "K-Super";
@@ -9,11 +12,9 @@
   };
 
   kdlt = {
-    mainUser = {
-      username = "kba";
-      fullname = "Kenneth Balboa Aguirre";
-      email = "aguirrekenneth@gmail.com";
-    };
+    username = "kba";
+    fullname = "Kenneth Balboa Aguirre";
+    email = "aguirrekenneth@gmail.com";
     stateVersion = "24.05";
     core = {
       btrfs = {
@@ -31,7 +32,7 @@
         # unfreePackages = [];
       };
       nixvim = {
-      	enable = true;
+        enable = true;
       };
     };
     graphical = {

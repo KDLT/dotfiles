@@ -8,7 +8,7 @@
   };
 
   config = lib.mkIf config.kdlt.development.go.enable {
-    home-manager.users.${config.kdlt.mainUser.username} = {
+    home-manager.users.${config.kdlt.username} = {
       home.packages = [ pkgs.go ];
     };
   };

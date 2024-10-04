@@ -5,7 +5,7 @@
   };
 
   config = lib.mkIf config.kdlt.graphical.xdg.enable {
-    home-manager.users.${config.kdlt.mainUser.username} = {
+    home-manager.users.${config.kdlt.username} = {
 
       xdg = {
         enable = true;

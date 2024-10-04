@@ -13,6 +13,7 @@
     ./ssh
     ./sshd
     ./tmux
+    ./udisks
     ./yazi # ranger vs yazi
     ./zoxide
   ];

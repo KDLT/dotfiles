@@ -11,6 +11,6 @@ let
   };
 in
 {
-  home-manager.users.${config.kdlt.mainUser.username} = {...}:
-    kdlt-lazygit "/home/${config.kdlt.mainUser.username}";
+  home-manager.users.${config.kdlt.username} = {...}:
+    kdlt-lazygit "/home/${config.kdlt.username}";
 }

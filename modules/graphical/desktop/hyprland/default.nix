@@ -81,7 +81,7 @@
       configPackages = [ hyprlandFlake.xdg-desktop-portal-hyprland ];
     };
 
-    home-manager.users."${config.kdlt.mainUser.username}" = { ... }: {
+    home-manager.users."${config.kdlt.username}" = { ... }: {
 
       home.packages = with pkgs; [
         # for qtwayland support packages

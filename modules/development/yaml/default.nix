@@ -6,7 +6,7 @@
   };
 
   config = lib.mkIf config.kdlt.development.yamlls.enable {
-    home-manager.users.${config.kdlt.mainUser.username} = {
+    home-manager.users.${config.kdlt.username} = {
       home.packages = [ pkgs.yaml-language-server ];
     };
   };

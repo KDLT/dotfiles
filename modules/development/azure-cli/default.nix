@@ -13,7 +13,7 @@
     #   (lib.mkIf (!config.kdlt.core.persistence.enable) {})
     # ];
 
-    home-manager.users.${config.kdlt.mainUser.username} = {
+    home-manager.users.${config.kdlt.username} = {
       # NOTICE: first time i've seen pkgs.stable specifically used
       home.packages = with pkgs.stable; [
         azure-cli

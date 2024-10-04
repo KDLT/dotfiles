@@ -10,7 +10,7 @@
   config = lib.mkIf config.kdlt.development.virtualization.docker.enable {
     # kdlt.core.zfs.systemCacheLinks = [ "/opt/docker" ];
 
-    users.users.${config.kdlt.mainUser.username}.extraGroups = [ "docker" ];
+    users.users.${config.kdlt.username}.extraGroups = [ "docker" ];
 
     virtualisation.docker = {
       enable = true;
@@ -18,7 +18,7 @@
       # storageDriver = "zfs"; # changing storage drivers will turn current images inaccessible
     };
 
-    home-manager.users.${config.kdlt.mainUser.username} = {
+    home-manager.users.${config.kdlt.username} = {
       home.packages = [
         pkgs.python312
         # pkgs.python312Full # i wonder what full means

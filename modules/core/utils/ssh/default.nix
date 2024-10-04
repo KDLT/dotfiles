@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  username = config.kdlt.mainUser.username;
+  username = config.kdlt.username;
   userhome = "/home/" + username;
   dataPrefix = "${config.kdlt.dataPrefix}";
 in

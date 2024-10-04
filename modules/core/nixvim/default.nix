@@ -17,7 +17,7 @@ in
   };
 
   config = lib.mkIf config.kdlt.core.nixvim.enable {
-    home-manager.users.${config.kdlt.mainUser.username} = {...}: {
+    home-manager.users.${config.kdlt.username} = {...}: {
       home.shellAliases = {
         v = "nvim";
       };

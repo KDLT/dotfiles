@@ -18,7 +18,7 @@ in
   # };
 
   # config = { # this requires importing the stylix.homeManagerModules.stylix
-  #   home-manager.users.${config.kdlt.mainUser.username} = {
+  #   home-manager.users.${config.kdlt.username} = {
   #     stylix.enable = true;
   #   };
   # };
@@ -31,8 +31,8 @@ in
   #   stylix.enable = true;
   #   stylix.image = /home/kba/Pictures/aesthetic-wallpapers/images/manga.png;
   #
-  #   home-manager.users.${config.kdlt.mainUser.username} = {...}: {
-  #   home-manager.users.${config.kdlt.mainUser.username} = {
+  #   home-manager.users.${config.kdlt.username} = {...}: {
+  #   home-manager.users.${config.kdlt.username} = {
   #     stylix.enable = true;
   #     stylix.image = /home/kba/Pictures/aesthetic-wallpapers/images/manga.png;
   #   };
