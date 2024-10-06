@@ -22,11 +22,19 @@
       };
 
       servers = {
-        clangd.enable = true;
-        texlab.enable = true;
-        lua-ls.enable = true;
-        nixd.enable = true;
-        pylsp.enable = true;
+        nixd.enable = true; # Nix
+        clangd.enable = true; # C
+        texlab.enable = true; # LaTeX
+        lua-ls.enable = true; # Lua
+        pylsp.enable = true; # Python
+        jsonls.enable = true; # JSON
+        cssls.enable = true; # CSS
+        tailwindcss.enable = true; # Tailwind CSS
+        html.enable = true; # HTML
+        emmet-ls.enable = true; # Emmet
+        sqls.enable = true; # SQL
+        ts-ls.enable = true; # TypeScript
+        yamlls.enable = true; # YAML
       };
     };
   };

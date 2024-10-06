@@ -25,26 +25,94 @@
 
     system = {
       stateVersion = config.kdlt.stateVersion;
-      autoUpgrade = {
-        enable = lib.mkDefault true;
-        flake = "github:KDLT/dotfiles";
-        dates = "01/04:00";
-        randomizedDelaySec = "15min";
-      };
+      # autoUpgrade = {
+      #   enable = lib.mkDefault true;
+      #   flake = "github:KDLT/dotfiles";
+      #   dates = "01/04:00";
+      #   randomizedDelaySec = "15min";
+      # };
     };
 
     environment = {
       systemPackages = with pkgs; [
-        udiskie
+        #nixos base packages
+        neovim # default editor
+        kitty # openGL based terminal emulator
+        disfetch # less complex fetching program
+        ranger # file explorer
+        zsh # shell
+        bat # better cat
+        eza # modern ls
+        just # save & run project specific commands
+        ## system call monitoring
+        strace
+        ltrace
+        tcpdump
+        lsof
+        # ebpf tools, run sandboxed programs in privileged context
+        # https://github.com/bpftrace/bpftrace
+        bpftrace
+        bpftop
+        bpfmon
+        ## system monitoring
+        sysstat
+        iotop
+        iftop
+        btop
+        nmon
+        sysbench
+
+        git # git
+
+        # archiving
+        zip # creating, modifying zip files
+        xz # general purpose data compression
+        zstd # z standard real time compression algorithm
+        unzipNLS # extraction utility for files in zip
+        p7zip # p7zip fork with additional codecs
+
+        # text processing
+        gnugrep # gnu implementation of unix grep command
+        gnused # gnu sed, batch stream editor
+        gawk # gnu awk, pattern scanning and processing language
+        jq # lightweight, flexible command line JSON processor
+
+        # networking tools
+        mtr # network diagnostic tool
+        iperf3 # tool to measure ip bandwidth
+        dnsutils # domain name server, `dig` + `nslookup`
+        ldns # replacement of `dig`, provides command `drill`
+        wget # https, http, ftp file retrieval
+        curl # cli tool for retrieving file with url syntax
+        aria2 # lightweight multi-protocol command line download utility
+        socat # bidirectional transfer between 2 independent data channels
+        nmap # utility for network discovery and security auditing
+        ipcalc # calculator for ipv4/v6 addressess
+
+        # systemtools
+        psmisc # killall/pstree/prtstat/fuser etc.
+        udiskie # removable disk automounter for udisks
+        lm_sensors # tool for reading hardware sensors
+        ethtool # network drivers Utility
+        pciutils # lspci
+        usbutils # lsusb
+        hdparm # diskperformance
+        dmidecode # reads info about system hardware
+        parted # create, resize, destroy, check, copy, disk partitions
+
+        # misc
+        file # show type of files
+        findutils # gnu find utilities, `find`, `xarg`, `locate`, `updatedb`
+        which # show full path of command
+        tree # depth indented directory listing
+        gnutar # gnu implementation of tar archiver
+        rsync # fast incremental file transfer utility
 
         coreutils
-        dnsutils
         moreutils
-        usbutils
         util-linux
         direnv
         lshw
-        nmap
         whois
         unzip
         age
@@ -55,13 +123,6 @@
         jdk
         yq
         openssl
-
-        wget git curl
-        neovim ranger kitty zsh
-        fzf ripgrep gcc fd
-        xclip
-        bat eza oh-my-posh fortune cowsay lolcat
-        disfetch onefetch
 
         # inputs.nixvim.packages.x86_64-linux.default
       ];

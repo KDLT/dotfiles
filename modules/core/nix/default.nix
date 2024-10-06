@@ -30,12 +30,19 @@ in
       allowUnfree = true;
     };
 
+
     nix = {
       settings = {
         trusted-users = [ username "@wheel" ];
         experimental-features = [ "nix-command" "flakes" ];
         warn-dirty = false;
+
+        # manual optimise: nix-store --optimise
+        auto-optimise-store = true;
       };
+
+      # remove nix-channel related tools & configs in favor of flakes
+      channel.enable = false;
 
       # garbage collect
       gc = {

@@ -11,7 +11,7 @@ with lib;
     ./swaync
     ./swww
     ./waybar
-    ./wlogout
+    ./wlogout # TODO: set up script for wlogout etc.
   ];
 
   config = mkIf config.kdlt.graphical.enable {

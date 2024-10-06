@@ -1,5 +1,6 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
+  username = config.kdlt.username;
 in
 {
   options = {
@@ -47,5 +48,31 @@ in
       # media-session.enable = true;
     };
 
+    services.playerctld.enable = true;
+
+    home-manager.users."${username}" = {...}: {
+      home.packages = with pkgs; [
+        pavucontrol # pulse audio volume control
+        playerctl # cli for MPRIS
+        pulsemixer # cli and curses for pulseaudio
+        imv # cli image viewer for tiling window managers
+
+        nvtopPackages.full # neat videocard top
+
+        cava # console based audio visualizer for alsa
+        libva-utils # collection of utilities for libva api
+        vdpauinfo
+        vulkan-tools
+        glxinfo
+      ];
+
+      programs = {
+        mpv = {
+          enable = true;
+          defaultProfiles = ["gpu-hq"];
+          scripts = [pkgs.mpvScripts.mpris];
+        };
+      };
+    };
   };
 }
