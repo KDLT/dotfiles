@@ -35,8 +35,7 @@ in
             user = "kba";
             identityFile = "~/.ssh/id_rsa_K-Super";
           };
-          # "git@github.com" = {
-          "git-ssh" = {
+          "git@github.com" = {
             hostname = "github.com";
             user = "git";
             identityFile = "~/.ssh/id_rsa_K-Super";
