@@ -106,7 +106,8 @@ tooltip label {
 #custom-launcher {
   font-size: 20px;
   padding-left: 8px;
-  padding-right: 6px;
+  /* padding-right: 6px; */
+  padding-right: 20px;
   color: #b5e8e0;
 }
 
@@ -123,8 +124,10 @@ tooltip label {
 #network,
 #battery,
 #custom-powermenu {
-  padding-left: 10px;
-  padding-right: 10px;
+  /* padding-left: 10px; */
+  /* padding-right: 10px; */
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 #memory {
@@ -141,7 +144,8 @@ tooltip label {
 
 #idle_inhibitor {
   color: @sand;
-  padding-right: 8px;
+  /* padding-right: 8px; */
+  padding-right: 16px;
 }
 
 #battery {
@@ -182,6 +186,10 @@ tooltip label {
 
 #network {
   color: @tealish;
+}
+
+#bluetooth {
+  color: @blue;
 }
 
 #network.disconnected {

@@ -44,6 +44,8 @@
       # };
       hyprland = {
         enable = true;
+        # use `hyprctl monitors` for info
+        display = "HDMI-A-1, 3840x2160@119.88, 0x0, 1";
       };
       xdg.enable = true;
     };

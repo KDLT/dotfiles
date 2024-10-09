@@ -35,7 +35,7 @@
 
     environment = {
       systemPackages = with pkgs; [
-        #nixos base packages
+        # ============== nixos ONLY base packages start ==============
         neovim # default editor
         kitty # openGL based terminal emulator
         disfetch # less complex fetching program
@@ -44,16 +44,19 @@
         bat # better cat
         eza # modern ls
         just # save & run project specific commands
+
         ## system call monitoring
         strace
         ltrace
         tcpdump
         lsof
+
         # ebpf tools, run sandboxed programs in privileged context
         # https://github.com/bpftrace/bpftrace
         bpftrace
         bpftop
         bpfmon
+
         ## system monitoring
         sysstat
         iotop
@@ -62,6 +65,20 @@
         nmon
         sysbench
 
+        # systemtools
+        psmisc # killall/pstree/prtstat/fuser etc.
+        udiskie # removable disk automounter for udisks
+        lm_sensors # tool for reading hardware sensors
+        ethtool # network drivers Utility
+        pciutils # lspci
+        usbutils # lsusb
+        hdparm # diskperformance
+        dmidecode # reads info about system hardware
+        parted # create, resize, destroy, check, copy, disk partitions
+        # ============== nixos ONLY base packages end ==============
+
+        # ============== base packages start ==============
+        # base packages can be used by BOTH nixos and darwin
         git # git
 
         # archiving
@@ -89,17 +106,6 @@
         nmap # utility for network discovery and security auditing
         ipcalc # calculator for ipv4/v6 addressess
 
-        # systemtools
-        psmisc # killall/pstree/prtstat/fuser etc.
-        udiskie # removable disk automounter for udisks
-        lm_sensors # tool for reading hardware sensors
-        ethtool # network drivers Utility
-        pciutils # lspci
-        usbutils # lsusb
-        hdparm # diskperformance
-        dmidecode # reads info about system hardware
-        parted # create, resize, destroy, check, copy, disk partitions
-
         # misc
         file # show type of files
         findutils # gnu find utilities, `find`, `xarg`, `locate`, `updatedb`
@@ -107,6 +113,7 @@
         tree # depth indented directory listing
         gnutar # gnu implementation of tar archiver
         rsync # fast incremental file transfer utility
+        # ============== base modules end ==============
 
         coreutils
         moreutils

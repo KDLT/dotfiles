@@ -37,6 +37,7 @@ in
         };
       };
     };
+    services.blueman.enable = true;
 
     services.pipewire = {
       enable = true;

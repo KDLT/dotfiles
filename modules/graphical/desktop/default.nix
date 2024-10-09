@@ -10,8 +10,9 @@ with lib;
     ./key_management
     ./swaync
     ./swww
+    ./thunar
     ./waybar
-    ./wlogout # TODO: set up script for wlogout etc.
+    ./wlogout
   ];
 
   config = mkIf config.kdlt.graphical.enable {
@@ -24,6 +25,7 @@ with lib;
       key_management.enable = mkDefault true;
       swaync.enable = mkDefault true;
       swww.enable = mkDefault true;
+      thunar.enable = mkDefault true;
       waybar.enable = mkDefault true;
       wlogout.enable = mkDefault true;
     };

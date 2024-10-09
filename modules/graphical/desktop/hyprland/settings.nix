@@ -9,6 +9,14 @@ with lib; let
   hyprlandConfig = config.kdlt.graphical.hyprland;
   username = config.kdlt.username;
 in {
+  options = {
+    kdlt.graphical.hyprland.display = lib.mkOption {
+        default = "HDMI-A-1, 3840x2160@119.88, 0x0, 1";
+        type = lib.types.str;
+        example =  "HDMI-A-1, 3840x2160@119.88, 0x0, 1";
+    };
+  };
+
   config = mkIf hyprlandConfig.enable {
     home-manager.users."${username}" = {...}: {
       services.cliphist.enable = true;
@@ -65,7 +73,8 @@ in {
           # "monitor" = "name,resolution,position,scale";
           # use `hyprctl monitors` for definition
           monitor = [
-            "HDMI-A-1, 3840x2160@119.88, 0x0, 1"
+            # "HDMI-A-1, 3840x2160@119.88, 0x0, 1"
+            hyprlandConfig.display
           ];
 
           xwayland.force_zero_scaling = true;

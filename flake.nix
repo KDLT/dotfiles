@@ -23,11 +23,11 @@
 
     swww.url = "github:LGFae/swww";
 
+    anyrun.url = "github:anyrun-org/anyrun";
+    anyrun.inputs.nixpkgs.follows = "nixpkgs";
+
     nixvim.url = "github:nix-community/nixvim"; # for unstable channel
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
-
-    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
-    alejandra.inputs.nixpkgs.follows = "nixpkgs";
 
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -37,10 +37,10 @@
     self,
     nixpkgs,
     hyprland,
+    anyrun,
     home-manager,
     nix-index-database,
     nixvim,
-    alejandra,
     stylix,
     ...
   } @ inputs: let
@@ -49,7 +49,10 @@
     # ALL `outputs` inheritable
     inherit (self) outputs; # this makes outputs inheritable below
 
-    # forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ];
+    # allSystemNames = [ "x86_64-linux" "aarch64-darwin" ];
+    # forAllSystems = func: (nixpkgs.lib.genAttrs allSystemNames func);
+    forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ];
+
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
 
@@ -60,15 +63,11 @@
     };
 
     hyprlandFlake = hyprland.packages.${pkgs.stdenv.hostPlatform.system};
-
-    nixFormat = {
-      environment.systemPackages = [alejandra.defaultPackage.${system}];
-    };
+    anyrunFlake = anyrun.packages.${pkgs.system};
 
     sharedModules = [
       # stylix.homeManagerModules.stylix # TODO: hm.nix gnome dconf issue
       # stylix.nixosModules.stylix # TODO: still suffering from infinite recursion
-      nixFormat
 
       home-manager.nixosModules.home-manager
       nix-index-database.nixosModules.nix-index
@@ -80,7 +79,7 @@
       Super = nixpkgs.lib.nixosSystem {
         # Super is my selected hostname
         modules = sharedModules ++ [./machines/Super/default.nix];
-        specialArgs = {inherit inputs outputs user hyprlandFlake;}; # i still don't know what outputs can be used for
+        specialArgs = {inherit inputs outputs user hyprlandFlake anyrunFlake;}; # i still don't know what outputs can be used for
 
         # system = system;
         # pkgs = pkgs; # only the home-manager module require this, it breaks things in nixosConf
@@ -88,6 +87,16 @@
         # sharedmodules contain the ./modules directory and input flakes
       };
     };
+
+    # TODO: test alejandra formatter on a rebuild next boot
+    formatter = forAllSystems (
+      system: nixpkgs.legacyPackages.${system}.alejandra
+    );
+
+    # formatter = {
+    #   "x86_64-linux" = nixpkgs.legacyPackages.${"x86_64-linux" }.alejandra ;
+    #   "aarch64-darwin" = nixpkgs.legacyPackages.${"aarch64-darwin"}.alejandra;
+    # };
 
     # this is used for custom packages
     # packages = forAllSystems (system:
