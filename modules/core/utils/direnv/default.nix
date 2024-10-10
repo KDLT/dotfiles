@@ -1,6 +1,10 @@
 # ~/dotfiles/modules/core/utils/direnv/default.nix
-{ config, lib, user, ... }:
 {
+  config,
+  lib,
+  user,
+  ...
+}: {
   config = {
     home-manager.users.${config.kdlt.username} = {
       programs.direnv = {

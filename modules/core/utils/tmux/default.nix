@@ -1,3 +1,2 @@
 # leaving blank for now
-{ ... }:
-{}
+{...}: {}

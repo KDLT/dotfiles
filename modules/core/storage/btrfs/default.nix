@@ -1,7 +1,12 @@
 # ~/dotfiles/modules/core/storage/btrfs/default.nix
-{ config, lib, pkgs, user, ... }:
-with lib;
 {
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+with lib; {
   options = {
     kdlt = {
       core = {
@@ -16,18 +21,18 @@ with lib;
           enable = mkEnableOption "btrfs";
           encrypted = mkEnableOption "btrfs request credentials";
 
-          systemCacheLinks = mkOption { default = []; };
-          systemDataLinks = mkOption { default = []; };
-          homeCacheLinks = mkOption { default = []; };
-          homeDataLinks = mkOption { default = []; };
+          systemCacheLinks = mkOption {default = [];};
+          systemDataLinks = mkOption {default = [];};
+          homeCacheLinks = mkOption {default = [];};
+          homeDataLinks = mkOption {default = [];};
 
           ensureSystemExists = mkOption {
             default = [];
-            example = [ "/data/etc/ssh" ];
+            example = ["/data/etc/ssh"];
           };
           ensureHomeExists = mkOption {
             default = [];
-            example = [ ".ssh" ];
+            example = [".ssh"];
           };
           rootDataset = mkOption {
             default = [];
@@ -47,7 +52,8 @@ with lib;
   config = {
     kdlt = {
       core = {
-        persistence = { # TODO: persistence is not yet set up, set to true after doing so
+        persistence = {
+          # TODO: persistence is not yet set up, set to true after doing so
           enable = mkDefault false;
         };
         btrfs = {

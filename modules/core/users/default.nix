@@ -1,6 +1,11 @@
 # ~/dotfiles/modules/core/users/default.nix
-{ config, lib, pkgs, user, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}: {
   options = {
     kdlt = {
       username = lib.mkOption {
@@ -28,11 +33,12 @@
       mutableUsers = true;
       users = {
         # ${user.username} = { # this is the original "known working" declaration
-        ${config.kdlt.username} = { # this is a different declaration from the rest of the config
+        ${config.kdlt.username} = {
+          # this is a different declaration from the rest of the config
           isNormalUser = true;
           # description = "${user.fullname}"; # this is the original "known working" declaration
           description = "${config.kdlt.fullname}";
-          extraGroups = [ "wheel" "networkmanager" ];
+          extraGroups = ["wheel" "networkmanager"];
           shell = pkgs.zsh;
           # hashedPasswordFile = config.sops.secrets."users/${username}".path;
         };

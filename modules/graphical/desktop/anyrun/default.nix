@@ -1,11 +1,12 @@
-{ lib,
-config,
-inputs,
-anyrunFlake,
-...}: let
+{
+  lib,
+  config,
+  inputs,
+  anyrunFlake,
+  ...
+}: let
   username = config.kdlt.username;
-in
-  {
+in {
   options = {
     kdlt.graphical = {
       anyrun.enable = lib.mkEnableOption "Enable Anyrun";
@@ -19,7 +20,7 @@ in
       extra-trusted-public-keys = ["anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="];
     };
 
-    home-manager.users.${username} = { ... }: {
+    home-manager.users.${username} = {...}: {
       imports = [
         inputs.anyrun.homeManagerModules.default
       ];

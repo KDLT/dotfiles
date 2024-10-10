@@ -1,5 +1,9 @@
-{  config, lib, user, ... }:
 {
+  config,
+  lib,
+  user,
+  ...
+}: {
   options = {
     kdlt = {
       graphical.applications.firefox.enable = lib.mkEnableOption "Firefox";

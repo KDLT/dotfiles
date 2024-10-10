@@ -4,9 +4,8 @@
   pkgs,
   ...
 }: let
-  username =  config.kdlt.username;
-in
-{
+  username = config.kdlt.username;
+in {
   # imports = [];
   # kdlt.core.zfs = lib.mkMerge [
   #   (lib.mkIf config.kdlt.core.persistence.enable {
@@ -48,11 +47,10 @@ in
         };
       };
 
-      root = _: { # the underscore colon _: might just be the same as {...}:
+      root = _: {
+        # the underscore colon _: might just be the same as {...}:
         home.stateVersion = config.kdlt.stateVersion;
       };
     };
-
-
   };
 }

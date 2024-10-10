@@ -1,13 +1,17 @@
-{ config, lib, ... }:
-with lib;
 {
+  config,
+  lib,
+  ...
+}:
+with lib; {
   imports = [
-    ./desktop
-    ./xdg
-    ./terminal
-    ./stylix # TODO: still infinite recursion when stylix is enabled
     ./applications
+    ./desktop
+    ./gtk
     ./sound
+    ./stylix # TODO: still infinite recursion when stylix is enabled
+    ./terminal
+    ./xdg
   ];
 
   options = {

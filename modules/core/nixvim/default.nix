@@ -1,8 +1,10 @@
 # Reference: https://github.com/GaetanLepage/nix-config/tree/master/home/modules/tui/neovim
-{ config, lib, ... }:
-let
-in
 {
+  config,
+  lib,
+  ...
+}: let
+in {
   # imports exist outside the options and config attribute set
   imports = [
     ./options.nix
@@ -23,27 +25,27 @@ in
       };
     };
 
-      programs.nixvim = {
-        enable = true;
-        enableMan = true; # enable nixvim manual
-        defaultEditor = true;
-        viAlias = true;
-        vimAlias = true;
-        luaLoader.enable = true;
+    programs.nixvim = {
+      enable = true;
+      enableMan = true; # enable nixvim manual
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      luaLoader.enable = true;
 
-        # cmd [[hi Normal guibg=NONE ctermbg=NONE]]
-        performance = {
-          combinePlugins = {
-            enable = true;
-            standalonePlugins = [
-              "hmts.nvim"
-              "nvim-treesitter"
-              "lualine.nvim"
-            ];
-          };
-          byteCompileLua.enable = true;
+      # cmd [[hi Normal guibg=NONE ctermbg=NONE]]
+      performance = {
+        combinePlugins = {
+          enable = true;
+          standalonePlugins = [
+            "hmts.nvim"
+            "nvim-treesitter"
+            "lualine.nvim"
+          ];
         };
+        byteCompileLua.enable = true;
       };
     };
+  };
   # };
 }

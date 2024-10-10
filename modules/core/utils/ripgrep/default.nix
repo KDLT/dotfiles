@@ -1,6 +1,5 @@
 # ~/dotfiles/modules/core/utils/ripgrep/default.nix
-{ config, ... }:
-{
+{config, ...}: {
   config = {
     # home-manager.${user.username} = {...}: {
     # why is the output not a function like above?

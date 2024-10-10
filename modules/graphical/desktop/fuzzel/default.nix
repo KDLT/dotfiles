@@ -1,13 +1,17 @@
 # ~/dotfiles/modules/graphical/desktop/fuzzel.nix
-{ config, lib, pkgs, ...}:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   options = {
     kdlt.graphical.fuzzel.enable = lib.mkEnableOption "fuzzel";
   };
   config = lib.mkIf config.kdlt.graphical.fuzzel.enable {
     home-manager.users = {
       ${config.kdlt.username} = {
-        home.packages = with pkgs; [ papirus-icon-theme ];
+        home.packages = with pkgs; [papirus-icon-theme];
         programs.fuzzel = {
           enable = true;
           settings = {
@@ -17,7 +21,6 @@
               icon-theme = "Papirus-Dark";
               prompt = " ";
               font = "CommitMono Nerd Font:size=36";
-
             };
 
             # commented colors out because of stylix conflicting definitions

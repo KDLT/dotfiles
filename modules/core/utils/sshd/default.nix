@@ -1,7 +1,9 @@
-{ config, lib, ... }:
-let
-in
 {
+  config,
+  lib,
+  ...
+}: let
+in {
   config = {
     # some zfs, persistence juju here
     # config.kdlt.core.zfs = lib.mkMerge [
@@ -35,6 +37,5 @@ in
         }
       ];
     };
-
   };
 }

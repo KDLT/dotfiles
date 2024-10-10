@@ -1,5 +1,6 @@
 # ~/dotfiles/modules/core/utils/yazi/default.nix
-{ config, ... }: { # you CANNOT omit the triple dot syntax when passing an input
+{config, ...}: {
+  # you CANNOT omit the triple dot syntax when passing an input
   config = {
     home-manager.users.${config.kdlt.username} = {
       programs.yazi = {

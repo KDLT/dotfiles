@@ -1,13 +1,11 @@
-{ ... }:
-let
+{...}: let
   schemeName = "tokyonight";
   # schemeName = "catppuccin";
   # schemeName = "dracula-nvim";
   # schemeName = "kanagawa";
   # schemeName = "palette";
   # schemeName = "onedark";
-in
-{
+in {
   programs.nixvim.colorschemes = {
     "${schemeName}" = {
       enable = true;

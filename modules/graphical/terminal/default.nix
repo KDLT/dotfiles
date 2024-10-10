@@ -1,4 +1,8 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 # nerdFontName = name: builtins.replaceStrings ["-"] [""] name + " Nerd Font";
 # nerdFontPkg = nerdFontName: (pkgs.nerdfonts.override { fonts = [ nerdFontName ]; });
 {
@@ -9,8 +13,7 @@
   };
 
   config = lib.mkIf config.kdlt.graphical.terminal.enable {
-    home-manager.users.${config.kdlt.username} = { ... }: {
-
+    home-manager.users.${config.kdlt.username} = {...}: {
       programs.kitty = {
         enable = true;
 
@@ -32,7 +35,6 @@
           tab_powerline_style = "round";
         };
       };
-
     };
   };
 }

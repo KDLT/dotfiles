@@ -11,9 +11,9 @@ with lib; let
 in {
   options = {
     kdlt.graphical.hyprland.display = lib.mkOption {
-        default = "HDMI-A-1, 3840x2160@119.88, 0x0, 1";
-        type = lib.types.str;
-        example =  "HDMI-A-1, 3840x2160@119.88, 0x0, 1";
+      default = "HDMI-A-1, 3840x2160@119.88, 0x0, 1";
+      type = lib.types.str;
+      example = "HDMI-A-1, 3840x2160@119.88, 0x0, 1";
     };
   };
 
@@ -59,7 +59,7 @@ in {
 
           cursor = {
             no_hardware_cursors = true; # nvidia hyprland requirement
-            enable_hyprcursor = true;
+            enable_hyprcursor = false; # i don't like this cursor
           };
 
           dwindle = {
@@ -143,7 +143,7 @@ in {
           };
 
           bind = [
-            "$mod ALT, e, exit"
+            "$mod ALT, del, exit"
             "$mod SHIFT, f, exec, $browser"
             "$mod, RETURN, exec, $terminal"
             "$mod ALT, c, killactive"
@@ -157,9 +157,6 @@ in {
 
             # splitratio, not working
             # "$mod SHIFT, r, splitratio, 70.0"
-
-            # fuzzel, application search
-            "$mod, u, exec, pkill fuzzel || ${pkgs.fuzzel}/bin/fuzzel"
 
             # centerwindow
             "$mod SHIFT, b, centerwindow, 1"
@@ -192,6 +189,10 @@ in {
             "$mod, 4, workspace, 4"
             "$mod, 5, workspace, 5"
             "$mod, 6, workspace, 6"
+            "$mod, 7, workspace, 7"
+            "$mod, 8, workspace, 8"
+            "$mod, 9, workspace, 9"
+            "$mod, 10, workspace, 10"
 
             # Move to workspaces
             "$mod ALT, 1, movetoworkspace, 1"
@@ -200,6 +201,32 @@ in {
             "$mod ALT, 4, movetoworkspace, 4"
             "$mod ALT, 5, movetoworkspace, 5"
             "$mod ALT, 6, movetoworkspace, 6"
+            "$mod ALT, 7, movetoworkspace, 7"
+            "$mod ALT, 8, movetoworkspace, 8"
+            "$mod ALT, 9, movetoworkspace, 9"
+            "$mod ALT, 10, movetoworkspace, 10"
+
+            # fuzzel, application search
+            "$mod, u, exec, pkill fuzzel || ${pkgs.fuzzel}/bin/fuzzel"
+
+            # # thunar file explorer
+            # "$mod ALT, e, exec, [float; center 1; size 50% 50%] ${pkgs.xfce.thunar}/bin/thunar"
+            # bind = SUPER, E, exec, [workspace 2 silent; float; move 0 0] kitty
+
+            # yazi file explorer
+            # "$mod ALT, e, exec, [float; center 1; size 50% 50%] $terminal --hold -e ${pkgs.yazi}/bin/yazi"
+            "$mod ALT, e, exec, [float; center 1; size 50% 50%] $terminal -e ${pkgs.yazi}/bin/yazi"
+
+            # clipboard search
+            "$mod ALT, v, exec, pkill fuzzel || cliphist list | fuzzel --match-mode=fzf --dmenu | cliphist decode | wl-copy"
+
+            # screencap entire screen
+            "$mod SHIFT, s, exec, ${pkgs.grim}/bin/grim | wl-copy"
+            # "$mod SHIFT+ALT, s, exec, ${pkgs.grim}/bin/grim -g ${pkgs.slurp} - | ${pkgs.swappy}/bin/swappy -f -" # fucking broken
+
+            # screencap region, autocopied to clipboard
+            "$mod SHIFT, 4, exec, ${pkgs.hyprshot}/bin/hyprshot -m region"
+
           ];
 
           bindm = [

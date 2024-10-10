@@ -1,8 +1,11 @@
-{ config, lib, pkgs, ... }:
-let
-  username = config.kdlt.username;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  username = config.kdlt.username;
+in {
   options = {
     kdlt = {
       graphical.sound = lib.mkEnableOption "Sound On?";
@@ -30,7 +33,7 @@ in
       bluetooth = {
         enable = true;
         settings = {
-          General =  {
+          General = {
             Enable = "Control,Gateway,Headset,Media,Sink,Socket,Source";
             MultiProfile = "multiple";
           };

@@ -17,7 +17,6 @@
 in {
   options = {};
   config = {
-
     # kdlt.core.zfs = lib.mkMerge [
     #   (lib.mkIf config.kdlt.core.persistence.enable {
     #     systemCacheLinks = ["/root/.local/share/autojump"];
@@ -29,7 +28,6 @@ in {
 
     home-manager.users = {
       ${username} = {
-
         home.packages = with pkgs; [
           comma # run package without installing them
           onefetch # git repo summary on terminal
@@ -60,8 +58,8 @@ in {
             extended = true;
           };
           initExtraBeforeCompInit = ''
-      setopt HIST_IGNORE_DUPS SHARE_HISTORY HIST_FCNTL_LOCK EXTENDED_HISTORY EXTENDED_GLOB NOTIFY
-      unsetopt AUTO_CD BEEP NOMATCH
+            setopt HIST_IGNORE_DUPS SHARE_HISTORY HIST_FCNTL_LOCK EXTENDED_HISTORY EXTENDED_GLOB NOTIFY
+            unsetopt AUTO_CD BEEP NOMATCH
           '';
           shellAliases = myAliases;
           # envextra is appended to zshenv, this gets called when spawning new terminals
@@ -71,8 +69,8 @@ in {
           loginExtra = "${hyprlandFlake.hyprland}/bin/Hyprland";
         };
 
-        programs.bash = { shellAliases = myAliases; };
-        programs.fish = { shellAliases = myAliases; };
+        programs.bash = {shellAliases = myAliases;};
+        programs.fish = {shellAliases = myAliases;};
       };
     };
   };

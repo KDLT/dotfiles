@@ -48,15 +48,12 @@
         options.desc = "Telescope vim-options";
       };
 
-
-
       # my Ctrl based bindings
       "<C-p>" = {
         action = "git_files";
         options.desc = "Telescope Git Files";
       };
       "<C-f>" = {
-
         action = "find_files";
         options.desc = "Telescope Files from ./";
       };

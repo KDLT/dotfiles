@@ -1,5 +1,10 @@
-{ pkgs, lib, config, user, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  user,
+  ...
+}: {
   # i choose to not declare these options here but in ../default.nix instead
   options = {
     kdlt.development = {
@@ -10,7 +15,7 @@
   config = lib.mkIf config.kdlt.development.virtualization.docker.enable {
     # kdlt.core.zfs.systemCacheLinks = [ "/opt/docker" ];
 
-    users.users.${config.kdlt.username}.extraGroups = [ "docker" ];
+    users.users.${config.kdlt.username}.extraGroups = ["docker"];
 
     virtualisation.docker = {
       enable = true;
@@ -24,6 +29,5 @@
         # pkgs.python312Full # i wonder what full means
       ];
     };
-
   };
 }

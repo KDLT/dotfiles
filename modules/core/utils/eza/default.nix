@@ -1,6 +1,5 @@
 # ~/dotfiles/modules/core/utils/eza/default.nix
-{ config, ... }:
-{
+{config, ...}: {
   config = {
     home-manager.users.${config.kdlt.username} = {
       programs.eza = {

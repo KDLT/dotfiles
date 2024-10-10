@@ -1,6 +1,10 @@
 # ~/dotfiles/modules/graphical/desktop/thunar.nix
-{ config, lib, pkgs, ...}:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   options = {
     kdlt.graphical.thunar.enable = lib.mkEnableOption "thunar";
   };

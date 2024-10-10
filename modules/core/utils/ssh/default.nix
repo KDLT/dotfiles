@@ -1,10 +1,12 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   username = config.kdlt.username;
   userhome = "/home/" + username;
   dataPrefix = "${config.kdlt.dataPrefix}";
-in
-{
+in {
   config = {
     # kdlt.core.zfs = lib.mkMerge [
     #   (lib.mkIf config.kdlt.core.persistence.enable {
@@ -24,7 +26,7 @@ in
     #   (lib.mkIf (!config.kdlt.core.persistence.enable))
     # ];
 
-    home-manager.users.${username} = { ... }: {
+    home-manager.users.${username} = {...}: {
       programs.ssh = {
         enable = true;
         # startAgent = true; # TODO: you pretend this does option does not exist
@@ -43,13 +45,13 @@ in
         };
         userKnownHostsFile =
           if config.kdlt.core.persistence.enable
-          then  "${dataPrefix}/home/${username}/.ssh/known_hosts"
+          then "${dataPrefix}/home/${username}/.ssh/known_hosts"
           else "${userhome}/.ssh/known_hosts";
         extraOptionOverrides = {
           AddKeysToAgent = "yes";
           IdentityFile =
             if config.kdlt.core.persistence.enable
-            then  "${dataPrefix}/home/${username}/.ssh/id_ed25519"
+            then "${dataPrefix}/home/${username}/.ssh/id_ed25519"
             else "${userhome}/.ssh/id_ed25519";
         };
       };

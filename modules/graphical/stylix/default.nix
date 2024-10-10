@@ -1,16 +1,19 @@
 # ~/dotfiles/modules/graphical/stylix/default.nix
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   monospace = "CommitMono";
   serif = "Go-Mono";
   sansSerif = "JetBrainsMono";
   fonts = name: rec {
-    cleanName = (builtins.replaceStrings [ "-" ] [ "" ] name);
+    cleanName = builtins.replaceStrings ["-"] [""] name;
     fontName = cleanName + " Nerd Font Mono";
-    fontPkg = (pkgs.nerdfonts.override { fonts = [ name ]; });
+    fontPkg = pkgs.nerdfonts.override {fonts = [name];};
   };
-in
-{
+in {
   # options = {
   #   kdlt = {
   #     graphical.stylix.enable = lib.mkEnableOption "Use Stylix";

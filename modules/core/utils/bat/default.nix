@@ -1,6 +1,9 @@
 # ~/dotfiles/modules/core/utils/bat/default.nix
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   config = {
     # home-manager.${user.username} = {...}: {
     # why is the output not a function like above?

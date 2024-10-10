@@ -1,5 +1,10 @@
-{ pkgs, lib, config, user, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  user,
+  ...
+}: {
   # i choose to not declare these options here but in ../default.nix instead
   options = {
     kdlt.development = {
@@ -9,7 +14,7 @@
 
   config = lib.mkIf config.kdlt.development.go.enable {
     home-manager.users.${config.kdlt.username} = {
-      home.packages = [ pkgs.go ];
+      home.packages = [pkgs.go];
     };
   };
 }

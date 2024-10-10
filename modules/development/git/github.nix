@@ -1,7 +1,11 @@
 # ~/dotfiles/modules/development/git/github.nix
 # programs.gh is the github cli tool
-{ lib, config, user, ... }:
-let
+{
+  lib,
+  config,
+  user,
+  ...
+}: let
   kdlt-gh = homePath: {
     programs.gh = {
       enable = true;
@@ -11,8 +15,7 @@ let
       };
     };
   };
-in
-{
+in {
   # kdlt.core.zfs = lib.mkMerge [
   #   (lib.mkIf config.kdlt.core.persistence.enable { homeCacheLinks = [".gh"]; })
   #   (lib.mkIf (!config.kdlt.core.persistence.enable) {})

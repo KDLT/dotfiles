@@ -1,6 +1,5 @@
 # ~/dotfiles/modules/core/storage/default.nix
-_:
-{
+_: {
   imports = [
     ./zfs
     ./btrfs

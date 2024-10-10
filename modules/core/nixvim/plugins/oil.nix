@@ -1,11 +1,12 @@
 {
   programs.nixvim = {
-
-    keymaps = [{
-      key = "<leader>t";
-      action = "<cmd>Oil<CR>";
-      options.desc = "Open Oil Buffer";
-    }];
+    keymaps = [
+      {
+        key = "<leader>t";
+        action = "<cmd>Oil<CR>";
+        options.desc = "Open Oil Buffer";
+      }
+    ];
 
     plugins.oil = {
       enable = true;
@@ -16,6 +17,5 @@
         };
       };
     };
-
   };
 }

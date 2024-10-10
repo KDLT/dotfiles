@@ -1,9 +1,11 @@
 # ~/dotfiles/modules/core/connectivity/wireless/default.nix
-{ config, lib, user, ... }:
-let
-in
 {
-
+  config,
+  lib,
+  user,
+  ...
+}: let
+in {
   options = {
     kdlt.core.wireless = {
       enable = lib.mkEnableOption "wireless via nmtui, must add user to networkmanager group";
@@ -18,5 +20,4 @@ in
   config = lib.mkIf config.kdlt.core.wireless.enable {
     networking.networkmanager.enable = true;
   };
-
 }

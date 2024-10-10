@@ -1,6 +1,10 @@
 # ~/dotfiles/modules/core/utils/gpg/default.nix
-{ config, lib, pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   config = {
     # kdlt.core.zfs = lib.mkMerge [
     #   (lib.mkIf config.kdlt.core.persistence.enable {

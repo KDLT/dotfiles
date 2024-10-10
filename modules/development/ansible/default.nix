@@ -1,6 +1,11 @@
 # ~/dotfiles/modules/development/ansible/default.nix
-{ pkgs, lib, config, user, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  user,
+  ...
+}: {
   options = {
     kdlt.development = {
       ansible.enable = lib.mkEnableOption "Ansible";

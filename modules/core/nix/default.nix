@@ -1,12 +1,14 @@
-{ config, lib, ...}:
-let
-  username = config.kdlt.username;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  username = config.kdlt.username;
+in {
   options = {
     kdlt.core.nix = {
-      enableDirenv = lib.mkOption { default = true; };
-      unfreePackages = lib.mkOption { default = []; };
+      enableDirenv = lib.mkOption {default = true;};
+      unfreePackages = lib.mkOption {default = [];};
     };
   };
 
@@ -30,11 +32,10 @@ in
       allowUnfree = true;
     };
 
-
     nix = {
       settings = {
-        trusted-users = [ username "@wheel" ];
-        experimental-features = [ "nix-command" "flakes" ];
+        trusted-users = [username "@wheel"];
+        experimental-features = ["nix-command" "flakes"];
         warn-dirty = false;
 
         # manual optimise: nix-store --optimise
@@ -57,6 +58,5 @@ in
         "/nix/var/nix/profiles/per-user/root/channels"
       ];
     };
-
   };
 }

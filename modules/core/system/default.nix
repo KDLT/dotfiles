@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   # Where most declarations from configuration.nix reside, e.g., timezone, system packages
   options = {
     kdlt = {
@@ -22,7 +21,6 @@
   };
 
   config = {
-
     system = {
       stateVersion = config.kdlt.stateVersion;
       # autoUpgrade = {
@@ -77,7 +75,7 @@
         parted # create, resize, destroy, check, copy, disk partitions
         # ============== nixos ONLY base packages end ==============
 
-        # ============== base packages start ==============
+        # ============== linux base packages start ==============
         # base packages can be used by BOTH nixos and darwin
         git # git
 
@@ -146,8 +144,9 @@
       doas = {
         enable = true;
         extraRules = [
-          { # these users would not be required to enter passwords
-            users = [ "${config.kdlt.username}" ];
+          {
+            # these users would not be required to enter passwords
+            users = ["${config.kdlt.username}"];
             noPass = true;
           }
         ];

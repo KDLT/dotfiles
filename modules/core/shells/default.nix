@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-{
-
+{pkgs, ...}: {
   imports = [
     ./zsh
     ./oh-my-posh
@@ -8,11 +6,12 @@
   ];
 
   environment.shells = with pkgs; [
-    zsh bash fish
+    zsh
+    bash
+    fish
   ];
 
   users = {
     defaultUserShell = pkgs.zsh;
   };
-
 }

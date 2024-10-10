@@ -29,6 +29,12 @@
     nixvim.url = "github:nix-community/nixvim"; # for unstable channel
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
+    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
+    alejandra.inputs.nixpkgs.follows = "nixpkgs";
+
+    disko.url = "github:nix-community/disko/v1.6.1";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs-stable";
   };
@@ -41,6 +47,7 @@
     home-manager,
     nix-index-database,
     nixvim,
+    alejandra,
     stylix,
     ...
   } @ inputs: let
@@ -51,7 +58,7 @@
 
     # allSystemNames = [ "x86_64-linux" "aarch64-darwin" ];
     # forAllSystems = func: (nixpkgs.lib.genAttrs allSystemNames func);
-    forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ];
+    forAllSystems = nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-darwin"];
 
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
@@ -68,7 +75,7 @@
     sharedModules = [
       # stylix.homeManagerModules.stylix # TODO: hm.nix gnome dconf issue
       # stylix.nixosModules.stylix # TODO: still suffering from infinite recursion
-
+      {environment.systemPackages = [alejandra.defaultPackage.${system}];}
       home-manager.nixosModules.home-manager
       nix-index-database.nixosModules.nix-index
       nixvim.nixosModules.nixvim

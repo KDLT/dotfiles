@@ -1,5 +1,10 @@
-{ pkgs, lib, config, user, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  user,
+  ...
+}: {
   # i choose to not declare these options here but in ../default.nix instead
   options = {
     kdlt.development = {
@@ -22,7 +27,6 @@
       programs.k9s = {
         enable = true;
       };
-
     };
   };
 }

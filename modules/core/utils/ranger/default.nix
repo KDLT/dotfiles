@@ -1,5 +1,5 @@
 # ~/dotfiles/modules/core/utils/ranger/default.nix
-{ config, ... }: {
+{config, ...}: {
   config = {
     home-manager.users.${config.kdlt.username} = {
       programs.ranger = {

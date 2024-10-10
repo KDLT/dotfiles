@@ -1,6 +1,10 @@
 # ~/dotfiles/modules/core/shells/starship/default.nix
 # directly stolen from dc-tec
-{lib, config, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   config = {
     home-manager.users = {
       ${config.kdlt.username} = {

@@ -1,6 +1,5 @@
 # ~/dotfiles/modules/core/utils/fzf/default.nix
-{ config, ... }:
-{
+{config, ...}: {
   config = {
     home-manager.users.${config.kdlt.username} = {
       programs.fzf = {

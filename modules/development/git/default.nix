@@ -1,7 +1,11 @@
-{ config, lib, pkgs, user, ... }:
-let
-in
 {
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}: let
+in {
   imports = [
     ./lazy_git.nix
     ./github.nix
@@ -43,11 +47,9 @@ in
           #   github.user = "kdlt";
           #   safe.directory = "/home/${username}/code/github/test/.git";
           # };
-
         };
       };
-    in
-    {
+    in {
       # see the multiple userspaces here
       home-manager.users.${config.kdlt.username} = {...}: kdlt-git;
       home-manager.users.root = {...}: kdlt-git;
