@@ -191,8 +191,8 @@ in {
             "$mod, 6, workspace, 6"
             "$mod, 7, workspace, 7"
             "$mod, 8, workspace, 8"
-            "$mod, 9, workspace, 9"
-            "$mod, 10, workspace, 10"
+            "$mod, 9, workspace,9"
+            "$mod, 0, workspace, 0"
 
             # Move to workspaces
             "$mod ALT, 1, movetoworkspace, 1"
@@ -204,7 +204,8 @@ in {
             "$mod ALT, 7, movetoworkspace, 7"
             "$mod ALT, 8, movetoworkspace, 8"
             "$mod ALT, 9, movetoworkspace, 9"
-            "$mod ALT, 10, movetoworkspace, 10"
+            "$mod ALT, 0, movetoworkspace, 0"
+
 
             # fuzzel, application search
             "$mod, u, exec, pkill fuzzel || ${pkgs.fuzzel}/bin/fuzzel"

@@ -17,7 +17,8 @@ in {
       enable = true;
 
       settings = {
-        PasswordAuthentication = false;
+        # PasswordAuthentication = false;
+        PasswordAuthentication = true; # how the fuck would you enroll keys?
         PermitRootLogin = "prohibit-password";
 
         # remove stale sockets

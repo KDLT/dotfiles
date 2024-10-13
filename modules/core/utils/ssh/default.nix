@@ -35,12 +35,20 @@ in {
           K-Nixpad = {
             hostname = "192.168.1.54";
             user = "kba";
-            identityFile = "~/.ssh/id_rsa_K-Super";
+            # identityFile = "~/.ssh/id_rsa_K-Super";
+            identityFile = "~/.ssh/id_ed25519_K-Super";
           };
           "git@github.com" = {
             hostname = "github.com";
             user = "git";
-            identityFile = "~/.ssh/id_rsa_K-Super";
+            # identityFile = "~/.ssh/id_rsa_K-Super";
+            identityFile = "~/.ssh/id_ed25519_K-Super";
+          };
+          "K-Mac" = {
+            hostname = "192.168.1.59";
+            user = "kba";
+            # identityFile = "~/.ssh/id_rsa_K-Super";
+            identityFile = "~/.ssh/id_ed25519_K-Super";
           };
         };
         userKnownHostsFile =
@@ -51,8 +59,10 @@ in {
           AddKeysToAgent = "yes";
           IdentityFile =
             if config.kdlt.core.persistence.enable
-            then "${dataPrefix}/home/${username}/.ssh/id_ed25519"
-            else "${userhome}/.ssh/id_ed25519";
+            # then "${dataPrefix}/home/${username}/.ssh/id_ed25519"
+            then "${dataPrefix}/home/${username}/.ssh/id_ed25519_K-Super"
+            # else "${userhome}/.ssh/id_rsa_K-Super";
+            else "${userhome}/.ssh/id_ed25519_K-Super";
         };
       };
 

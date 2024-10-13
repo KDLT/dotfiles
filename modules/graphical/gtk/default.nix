@@ -26,9 +26,11 @@
         gtk2.extraConfig = "gtk-application-prefer-dark-theme = true;";
         gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
 
+        # this also controls all the non configurable font size in firefox
         font = {
           name = "Commit Mono Nerd Font";
-          size = 16;
+          # size = 16;
+          size = 14;
         };
 
         theme = {

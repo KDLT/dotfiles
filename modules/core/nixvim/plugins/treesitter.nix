@@ -27,8 +27,8 @@
         min_window_height = 0;
         mode = "topline";
         multiline_threshold = 20;
-        # separator = "-";
-        separator = "nil";
+        separator = "-";
+        # separator = "nil";
         trim_scope = "inner";
         zindex = 20;
       };

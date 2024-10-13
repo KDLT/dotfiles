@@ -5,8 +5,11 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
-    nur.url = "github:nix-community/NUR"; # nix user repository
     sops-nix.url = "github:Mic92/sops-nix"; # secrets management
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    nur.url = "github:nix-community/NUR"; # nix user repository
+
     impermanence.url = "github:nix-community/impermanence"; # nuke / on every boot
 
     nix-index-database.url = "github:nix-community/nix-index-database";
@@ -42,6 +45,7 @@
   outputs = {
     self,
     nixpkgs,
+    sops-nix,
     hyprland,
     anyrun,
     home-manager,
@@ -79,11 +83,13 @@
       home-manager.nixosModules.home-manager
       nix-index-database.nixosModules.nix-index
       nixvim.nixosModules.nixvim
+      sops-nix.nixosModules.sops
+
       ./modules # this points to default.nix that imports core, development, graphical
     ];
   in {
     nixosConfigurations = {
-      Super = nixpkgs.lib.nixosSystem {
+      K-Super = nixpkgs.lib.nixosSystem {
         # Super is my selected hostname
         modules = sharedModules ++ [./machines/Super/default.nix];
         specialArgs = {inherit inputs outputs user hyprlandFlake anyrunFlake;}; # i still don't know what outputs can be used for
