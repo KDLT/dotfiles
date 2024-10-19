@@ -32,11 +32,9 @@
       # implementing secrets management, see hashedPasswordFile commented lines below
       mutableUsers = true;
       users = {
-        # ${user.username} = { # this is the original "known working" declaration
         ${config.kdlt.username} = {
           # this is a different declaration from the rest of the config
           isNormalUser = true;
-          # description = "${user.fullname}"; # this is the original "known working" declaration
           description = "${config.kdlt.fullname}";
           extraGroups = ["wheel" "networkmanager"];
           shell = pkgs.zsh;

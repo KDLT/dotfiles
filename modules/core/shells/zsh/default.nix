@@ -45,23 +45,53 @@ in {
         };
 
         programs.zsh = {
-          dotDir = ".config/zsh";
-          defaultKeymap = "viins";
-          completionInit = "autoload -Uz compinit";
-          enableCompletion = true;
-          syntaxHighlighting.enable = true;
-          autosuggestion.enable = true;
-          historySubstringSearch.enable = true;
+          dotDir = ".config/zsh"; # path relative to $HOME
+
           history = {
-            path = "$HOME/.config/zsh/histfile";
-            save = 10000;
-            extended = true;
+            size = 10000;
+            extended = true; # add timestamps
+            path = "$XDG_CONFIG_HOME/zsh/histfile";
+            ignoreDups = true; # ignore succeeding duplicates
+            ignoreAllDups = true; # ignore all duplicates
           };
+
+          autosuggestion.enable = true;
+
           initExtraBeforeCompInit = ''
-            setopt HIST_IGNORE_DUPS SHARE_HISTORY HIST_FCNTL_LOCK EXTENDED_HISTORY EXTENDED_GLOB NOTIFY
-            unsetopt AUTO_CD BEEP NOMATCH
+            # set directory for storing zinit and plugins
+            ZINIT_HOME="$XDG_DATA_HOME/zinit/zinit.git"
+            [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+            [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+
+            # source/load zinit
+            source "$ZINIT_HOME/zinit.zsh"
+
+            # let nixos handle autosuggest but zinit for the syntax highlight and autocomplete
+            zinit light zdharma-continuum/fast-syntax-highlighting
+            zinit light marlonrichert/zsh-autocomplete
           '';
+
+          completionInit = ''
+            autoload -U compinit && compinit -d $HOME/.config/zsh/zcompdump
+          '';
+
+          initExtra = ''
+            # match dotfiles without explicitly specifying the dot
+            setopt GLOB_DOTS
+
+            # # set home directory for ohmyposh config
+            # OMP_HOME="$XDG_CONFIG_HOME/ohmyposh"
+            # # if OMP_HOME does not exist create it
+            # [ ! -d $OMP_HOME ] && mkdir -p "$(dirname $OMP_HOME)"
+            #
+            # # this is a file located in OMP_HOME, containts the prompt settings
+            # OMP_THEME="half-life-transient.toml"
+            # # invoke the prompt
+            # eval "$(oh-my-posh init zsh --config $OMP_HOME/$OMP_THEME)"
+          '';
+
           shellAliases = myAliases;
+
           # envextra is appended to zshenv, this gets called when spawning new terminals
           envExtra = ''${pkgs.disfetch}/bin/disfetch'';
           # to know the specific binary, nix build ${}

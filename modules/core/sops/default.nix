@@ -16,10 +16,10 @@ in {
       ];
       generateKey = true;
     };
+
+    secrets = {};
   };
-
 }
-
 # _: {
 #   age = {
 #     keyFile = "/home/roelc/.config/sops/age/keys.txt";
@@ -50,3 +50,4 @@ in {
 #     };
 #   };
 # }
+

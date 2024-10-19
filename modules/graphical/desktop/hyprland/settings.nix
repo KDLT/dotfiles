@@ -206,7 +206,6 @@ in {
             "$mod ALT, 9, movetoworkspace, 9"
             "$mod ALT, 0, movetoworkspace, 0"
 
-
             # fuzzel, application search
             "$mod, u, exec, pkill fuzzel || ${pkgs.fuzzel}/bin/fuzzel"
 
@@ -227,7 +226,6 @@ in {
 
             # screencap region, autocopied to clipboard
             "$mod SHIFT, 4, exec, ${pkgs.hyprshot}/bin/hyprshot -m region"
-
           ];
 
           bindm = [
