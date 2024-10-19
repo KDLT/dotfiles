@@ -66,7 +66,7 @@ in {
             # source/load zinit
             source "$ZINIT_HOME/zinit.zsh"
 
-            # let nixos handle autosuggest but zinit for the syntax highlight and autocomplete
+            # let zinit handle syntax highlight and autocomplete
             zinit light zdharma-continuum/fast-syntax-highlighting
             zinit light marlonrichert/zsh-autocomplete
           '';
@@ -78,16 +78,6 @@ in {
           initExtra = ''
             # match dotfiles without explicitly specifying the dot
             setopt GLOB_DOTS
-
-            # # set home directory for ohmyposh config
-            # OMP_HOME="$XDG_CONFIG_HOME/ohmyposh"
-            # # if OMP_HOME does not exist create it
-            # [ ! -d $OMP_HOME ] && mkdir -p "$(dirname $OMP_HOME)"
-            #
-            # # this is a file located in OMP_HOME, containts the prompt settings
-            # OMP_THEME="half-life-transient.toml"
-            # # invoke the prompt
-            # eval "$(oh-my-posh init zsh --config $OMP_HOME/$OMP_THEME)"
           '';
 
           shellAliases = myAliases;
